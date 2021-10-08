@@ -1,7 +1,7 @@
 .idea
-billiards_app/__init__.py
-billiards_app/localData.db
-billiards_app/static/stimuli_order.js
+Code/billiards_app/__init__.py
+Code/billiards_app/localData.db
+Code/billiards_app/static/stimuli_order.js
 pilot/Plots/*
 *.sqlite
 *.db
