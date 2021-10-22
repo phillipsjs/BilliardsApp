@@ -8,6 +8,7 @@ class Subject(db.Model):
     jspsychID = db.Column(db.String, unique=True)
     prolificID = db.Column(db.String)
     completion = db.Column(db.Boolean)
+    condition = db.Column(db.String)
     trials = db.relationship('Trial', backref='subject', lazy='dynamic', cascade="all, delete-orphan")
 
     def __repr__(self):
