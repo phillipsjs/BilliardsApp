@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tower</title>
+    <style> li{
+        background: #0d0d0d;
+        collapse: white;
+
+    }
+    </style>
+</head>
+<body>
+<h1>Choose your own adventure!</h1>
+<br><br>
+<div><button type="button" id="anim">Animate Condition</button></div>
+<br>
+<div><button type="button" id="phys">Inanimate Condition</button></div>
+<script>
+    document.getElementById("anim").addEventListener('click', function(){
+        localStorage.setItem('adventure', '../static/stimuli/part1_anim.mp4');
+        window.location.href = 'experiment';
+    })
+
+    document.getElementById("phys").addEventListener('click', function(){
+       localStorage.setItem('adventure', '../static/stimuli/part1_phys.mp4');
+       window.location.href = 'experiment';
+
+    })
+</script>
+</body>
+</html>
