@@ -9,4 +9,4 @@ pilot/Plots/*
 *.pyc
 *db
 .Rhistory
-
+.DS_Store
