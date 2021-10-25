@@ -61,7 +61,7 @@
     if (localStorage.getItem('adventure') === '../static/stimuli/part1_phys.mp4'){
          prompt1 = '<span style="font-size: xx-large"> Please familiarize yourself with this video. You will asked about a similar video shortly.</span>';
     } else {
-         prompt1 = '<span style="font-size: xx-large"> The <span style="color: deeppink; font-weight: bold">pink</span> ball is forbidden from touching the tower built by the <span style="color: seagreen; font-weight: bold">green</span> ball. </span>'
+         prompt1 = '<span style="font-size: xx-large"> The <span style="color: deeppink; font-weight: bold">pink</span> ball is forbidden from knocking over the tower built by the <span style="color: seagreen; font-weight: bold">green</span> ball. </span>'
     }
     var vid1_phys = {
         type: 'video-button-response',
@@ -85,7 +85,7 @@
         type: 'video-slider-response',
         stimulus: ['../static/stimuli/test_stim1.mp4'],
         prompt: ['<p>Please rate the extent to which you agree with the following: </p> <br><span style="font-size: xx-large;">The <span style="color: deeppink; font-weight: bold">pink</span> ball caused the tower to fall.</span>', '<span style="font-size: xx-large;">The <span style="color: seagreen;font-weight: bold">green </span>ball caused the tower to fall</span>'],
-        labels: ['Agree', 'Disagree'],
+        labels: ['Disagree', 'Agree'],
         require_movement: true,
         on_finish: function () {
             $.ajax({
