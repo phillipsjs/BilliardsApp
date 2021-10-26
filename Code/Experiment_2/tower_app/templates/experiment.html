@@ -66,6 +66,7 @@
     var vid1_phys = {
         type: 'video-button-response',
         stimulus: [localStorage.getItem('adventure')], //['../static/stimuli/part1_phys.mp4'],
+        width: 1000,
         choices: ['continue'],
         rate: 1.25,
         prompt: prompt1, //'<span style="font-size: xx-large"> Please familiarize yourself with this video. You will asked about a similar video shortly.</span>',
@@ -85,6 +86,7 @@
     var vid2_test = {
         type: 'video-slider-response',
         stimulus: ['../static/stimuli/test_stim1.mp4'],
+        width: 1000,
         prompt: ['<p>Please rate the extent to which you agree with the following: </p> <br><span style="font-size: xx-large;">The <span style="color: deeppink; font-weight: bold">pink</span> ball caused the tower to fall.</span>', '<span style="font-size: xx-large;">The <span style="color: seagreen;font-weight: bold">green </span>ball caused the tower to fall</span>'],
         labels: ['Disagree', 'Agree'],
         rate: 1.25,

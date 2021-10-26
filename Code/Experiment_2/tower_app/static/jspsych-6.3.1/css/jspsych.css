@@ -20,6 +20,8 @@
    overflow-y: auto;
    background: black; /*linear-gradient(white, black);*/
    color: #f5f5f5;
+   width: 80% !important;
+   margin: auto !important;
  }
 
  .jspsych-display-element:focus {
