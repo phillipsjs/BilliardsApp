@@ -17,7 +17,7 @@
         <link href="../static/jspsych-6.3.1/fonts/">
         <link href="../static/jspsych-6.3.1/css/jspsych.css" rel="stylesheet" type="text/css">
 </head>
-<body>
+<body style="width: 80%;">
 </body>
 <script>
     var preload = {
@@ -59,15 +59,15 @@
     }
 
     if (localStorage.getItem('adventure') === '../static/stimuli/part1_phys.mp4'){
-         prompt1 = '<span style="font-size: xx-large"> Please familiarize yourself with this video. You will asked about a similar video shortly.</span>';
+         prompt1 = '<p><span style="font-size: xx-large"> Please familiarize yourself with this video. You will asked about a similar video shortly.</span></p>';
     } else {
-         prompt1 = '<span style="font-size: xx-large"> The <span style="color: deeppink; font-weight: bold">pink</span> ball is forbidden from knocking over the tower built by the <span style="color: seagreen; font-weight: bold">green</span> ball. </span>'
+         prompt1 = '<p><span style="font-size: xx-large"> The <span style="color: deeppink; font-weight: bold">pink</span> ball is forbidden from knocking over the tower built by the <span style="color: seagreen; font-weight: bold">green</span> ball. </span></p>'
     }
     var vid1_phys = {
         type: 'video-button-response',
         stimulus: [localStorage.getItem('adventure')], //['../static/stimuli/part1_phys.mp4'],
         choices: ['continue'],
-        rate: 1,
+        rate: 1.25,
         prompt: prompt1, //'<span style="font-size: xx-large"> Please familiarize yourself with this video. You will asked about a similar video shortly.</span>',
         response_allowed_while_playing: false,
 
@@ -87,7 +87,7 @@
         stimulus: ['../static/stimuli/test_stim1.mp4'],
         prompt: ['<p>Please rate the extent to which you agree with the following: </p> <br><span style="font-size: xx-large;">The <span style="color: deeppink; font-weight: bold">pink</span> ball caused the tower to fall.</span>', '<span style="font-size: xx-large;">The <span style="color: seagreen;font-weight: bold">green </span>ball caused the tower to fall</span>'],
         labels: ['Disagree', 'Agree'],
-        rate: 1,
+        rate: 1.25,
         require_movement: true,
         on_finish: function () {
             $.ajax({
@@ -159,9 +159,9 @@
     timeline.push(consent, preload, instructions, vid1_phys,fixation, vid2_test, feedback, debrief);
 
     jsPsych.init({
-            timeline:timeline,
-            show_progress_bar: true,
-            override_safe_mode: true
+        timeline:timeline,
+        show_progress_bar: true,
+        override_safe_mode: true,
         })
 
 
