@@ -67,6 +67,7 @@
         type: 'video-button-response',
         stimulus: [localStorage.getItem('adventure')], //['../static/stimuli/part1_phys.mp4'],
         choices: ['continue'],
+        rate: 1,
         prompt: prompt1, //'<span style="font-size: xx-large"> Please familiarize yourself with this video. You will asked about a similar video shortly.</span>',
         response_allowed_while_playing: false,
 
@@ -86,6 +87,7 @@
         stimulus: ['../static/stimuli/test_stim1.mp4'],
         prompt: ['<p>Please rate the extent to which you agree with the following: </p> <br><span style="font-size: xx-large;">The <span style="color: deeppink; font-weight: bold">pink</span> ball caused the tower to fall.</span>', '<span style="font-size: xx-large;">The <span style="color: seagreen;font-weight: bold">green </span>ball caused the tower to fall</span>'],
         labels: ['Disagree', 'Agree'],
+        rate: 1,
         require_movement: true,
         on_finish: function () {
             $.ajax({
