@@ -92,7 +92,8 @@
                 "<p style='font-size: 2em;'> Thank you for your participation!   Your Completion Code is: xxxx</p><p>Press the finish button to leave the experiment</p>",
             choices: ['Finish'],
             on_finish: function () {
-                jsPsych.endExperiment('Goodbye')
+                window.location = "https://app.prolific.co/submissions/complete?cc=XXX"
+
             }
         }
 
