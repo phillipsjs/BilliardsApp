@@ -59,10 +59,21 @@
     }
 
     if (localStorage.getItem('adventure') === '../static/stimuli/part1_phys.mp4'){
-         prompt1 = '<p><span style="font-size: xx-large"> Please familiarize yourself with this video. You will asked about a similar video shortly.</span></p>';
+        prompt1 = '<p><span style="font-size: xx-large"> Please familiarize yourself with this video. You will asked about a similar video shortly.</span></p>';
+        q1 = '<h2> The balls were...</h2>'
+        c1 = ['<span style="font-size: 40px;">Animate?</span>', '<span style="font-size: 40px;">Inanimate?</span>']
     } else {
-         prompt1 = '<p><span style="font-size: xx-large"> The <span style="color: deeppink; font-weight: bold">pink</span> ball is forbidden from knocking over the tower built by the <span style="color: seagreen; font-weight: bold">green</span> ball. </span></p>'
+        prompt1 = '<p><span style="font-size: xx-large"> The <span style="color: deeppink; font-weight: bold">pink</span> ball is forbidden from knocking over the tower built by the <span style="color: seagreen; font-weight: bold">green</span> ball. </span></p>'
+        q1 = '<h2> Which ball built the tower?</h2>'
+        c1 = ['<span style="color: deeppink; font-weight: bold; font-size: 40px;">pink</span>', '<span style="color: seagreen; font-weight: bold; font-size:40px;">green</span>']
     }
+    if (localStorage.getItem('norm') === '../static/stimuli/test_stim1.mp4'){
+         prompt2 = ['<p>Please rate the extent to which you agree with the following: </p> <br><span style="font-size: xx-large;">The <span style="color: deeppink; font-weight: bold">pink</span> ball caused the tower to fall.</span>', '<span style="font-size: xx-large;">The <span style="color: seagreen;font-weight: bold">green </span>ball caused the tower to fall</span>'];
+    } else {
+         prompt2 = ['<p>Please rate the extent to which you agree with the following: </p> <br><span style="font-size: xx-large;">The <span style="color: seagreen;font-weight: bold">green </span>ball caused the tower to fall</span>', '<span style="font-size: xx-large;">The <span style="color: deeppink; font-weight: bold">pink</span> ball caused the tower to fall.</span>'];
+    }
+
+
     var vid1_phys = {
         type: 'video-button-response',
         stimulus: [localStorage.getItem('adventure')], //['../static/stimuli/part1_phys.mp4'],
@@ -85,9 +96,9 @@
 
     var vid2_test = {
         type: 'video-slider-response',
-        stimulus: ['../static/stimuli/test_stim1.mp4'],
+        stimulus: [localStorage.getItem('norm')],
         width: 1000,
-        prompt: ['<p>Please rate the extent to which you agree with the following: </p> <br><span style="font-size: xx-large;">The <span style="color: deeppink; font-weight: bold">pink</span> ball caused the tower to fall.</span>', '<span style="font-size: xx-large;">The <span style="color: seagreen;font-weight: bold">green </span>ball caused the tower to fall</span>'],
+        prompt: prompt2, //['<p>Please rate the extent to which you agree with the following: </p> <br><span style="font-size: xx-large;">The <span style="color: deeppink; font-weight: bold">pink</span> ball caused the tower to fall.</span>', '<span style="font-size: xx-large;">The <span style="color: seagreen;font-weight: bold">green </span>ball caused the tower to fall</span>'],
         labels: ['Disagree', 'Agree'],
         rate: 1.25,
         require_movement: true,
@@ -126,6 +137,20 @@
             }
         }
 
+    var comprehension1 = {
+    type: 'html-button-response',
+    stimulus: '<h1>Comprehension Check</h1><br>',
+    choices: c1,
+    prompt: q1
+};
+    var comprehension2 = {
+        type: 'html-button-response',
+        stimulus: '<h1>Comprehension Check</h1><br>',
+        choices: ['<span style="color: deeppink; font-weight: bold; font-size: 40px;">pink</span>', '<span style="color: seagreen; font-weight: bold; font-size: 40px;">green</span>'],
+        prompt:  '<h2>Regardless of which ball you think caused the outcome, which ball actually collided with the tower <span style="font-style:italic;">in the second clip</span> </h2>'
+
+};
+
     var feedback = {
         type: 'survey-text',
         questions: [{prompt: 'How did you make your judgement about the videos? What factors did you consider?'},
@@ -158,7 +183,7 @@
         }
 
     var timeline = [];
-    timeline.push(consent, preload, instructions, vid1_phys,fixation, vid2_test, feedback, debrief);
+    timeline.push(consent, preload, instructions, vid1_phys,fixation, vid2_test, comprehension1, comprehension2, feedback, debrief);
 
     jsPsych.init({
         timeline:timeline,

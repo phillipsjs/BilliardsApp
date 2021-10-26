@@ -79,7 +79,10 @@ jsPsych.plugins["html-button-response"] = (function() {
 
     // display stimulus
     var html = '<div id="jspsych-html-button-response-stimulus">'+trial.stimulus+'</div>';
-
+    //show prompt if there is one
+    if (trial.prompt !== null) {
+      html += trial.prompt;
+    }
     //display buttons
     var buttons = [];
     if (Array.isArray(trial.button_html)) {
@@ -100,10 +103,7 @@ jsPsych.plugins["html-button-response"] = (function() {
     }
     html += '</div>';
 
-    //show prompt if there is one
-    if (trial.prompt !== null) {
-      html += trial.prompt;
-    }
+
     display_element.innerHTML = html;
 
     // start time
