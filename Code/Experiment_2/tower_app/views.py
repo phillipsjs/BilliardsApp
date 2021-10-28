@@ -21,7 +21,7 @@ def experiment():
             subj = Subject(date=datetime.datetime.now(),
                            jspsychID=dd['subjectID'],
                            prolificID=dd['prolificID'],
-                           anim_cond=False)
+                           anim_cond='inanimate_rational')
             db.session.add(subj)
             db.session.commit()
         if dd['trial_type'] == 'video-slider-response':

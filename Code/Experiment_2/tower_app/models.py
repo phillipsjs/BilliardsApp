@@ -9,7 +9,7 @@ class Subject(db.Model):
     completion = db.Column(db.Boolean)
     compelete_time = db.Column(db.DateTime)
     feedback = db.Column(db.String)
-    anim_cond = db.Column(db.Boolean)
+    anim_cond = db.Column(db.String)
     trials = db.relationship('Trial', backref='subject', lazy='dynamic', cascade="all, delete-orphan")
 
     def __repr__(self):
