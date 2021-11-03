@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+    <head>
+        <title>Pool Shark</title>
+        <link rel="icon" href="/static/favicon.ico" type="image/x-icon" />
+
+        <script src="/static/jspsych-6.3.1/jspsych.js"></script>
+        <script src="/static/jspsych-6.3.1/plugins/jspsych-html-keyboard-response.js"></script>
+        <script src="/static/jspsych-6.3.1/plugins/jspsych-image-keyboard-response.js"></script>
+        <script src="/static/jspsych-6.3.1/plugins/jspsych-video-slider-response.js"></script>
+        <script src="/static/jspsych-6.3.1/plugins/jspsych-preload.js"></script>
+        <script src="/static/stimuli_order.js" id="stim_order" type="text/javascript"></script>
+        <script src="/static/jspsych-6.3.1/jquery-min.js"></script>
+        <link href="/static/jspsych-6.3.1/fonts/">
+        <link href="/static/jspsych-6.3.1/css/jspsych.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+    </body>
+
+    <script>
+        var timeline = [];
+
+        var preload = {
+            type: 'preload',
+            auto_preload: true
+        }
+
+        var welcome = {
+            type: 'html-keyboard-response',
+            stimulus: "<p style='font-size: x-large;'>Welcome to the experiment. Press any key to begin.</p>"
+        }
+
+        var instructions = {
+            type: 'html-keyboard-response',
+            stimulus: '<span style="font-size: x-large;">' +
+                "<p>In this experiment, You'll make judgements about a series of billiard ball events, and possible " +
+                "alternative events.</p><p> Make your judgement based on the videos displayed by using a slider bar to " +
+                "indicate your agreement with the statements on the screen.</p></span>" +
+                "<div class='row' style='display: inline-flex;'>" +
+                "<div><img src='static/img/ballAimage.png' style='width:350px;'><p class='small'><strong>Ball A</strong></p></div>" +
+                "<div><img src='static/img/exampletrial.png' style='width:600px;border-style: double;'><p class='small'><strong>Example</strong></p></div>" +
+                "<div><img src='static/img/BallBimage.png' style='width: 350px;'><p class='small'><strong>Ball B</strong></p></div>" +
+                "</div><div><br><br><p style='font-size: x-large;'>Press any key to begin.</p></div>" +'',
+            post_trial_gap: 1000,
+            on_finish: function (){
+                $.ajax({
+                         type: "POST",
+                         contentType: "application/json;charset=utf-8",
+                         url:"http://127.0.0.1:5000/",
+                         traditional: true,
+                         data: jsPsych.data.get().json(),
+                         dataType: "json"});
+                localStorage.setItem('sub_dat', jsPsych.data.getLastTrialData().json())
+            }
+        };
+
+
+        jsPsych.data.addProperties({
+          subjectID: jsPsych.randomization.randomID(15)
+        });
+
+        timeline.push( welcome, instructions)
+
+        jsPsych.init({
+            timeline:timeline,
+            show_progress_bar: true,
+            on_finish: function(){
+                window.location.href= 'http://127.0.0.1:5000/experiment';
+           	},
+            override_safe_mode: false
+        })
+
+    </script>
+
+
+</html>

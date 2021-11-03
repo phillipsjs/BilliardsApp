@@ -1,0 +1,3 @@
+session_id,participant_id,status,started_datetime,completed_date_time,time_taken,age,num_approvals,num_rejections,prolific_score,reviewed_at_datetime,entered_code,Country of Birth,Current Country of Residence,Employment Status,First Language,Fluent languages,Nationality,Sex,Student Status
+615617a50b3faa8b9aa9f8e1,6155b300fc78681c6f548229,APPROVED,2021-09-30 20:01:53.128000,2021-09-30 20:39:55.401000,2282.273,22,6,0,100,2021-09-30 21:11:53.507000,875B6695,Mexico,Mexico,Full-Time,Spanish,"Spanish, English, French",Mexico,Female,Yes
+615617f67cbd4aedbdff7402,5e617adcc4e9d604ee3fdb8b,APPROVED,2021-09-30 20:03:05.112000,2021-09-30 20:19:38.443000,993.331,22,30,0,100,2021-09-30 20:21:02.798000,875B6695,Poland,Poland,Other,Polish,"English, Polish",Poland,Male,Yes
