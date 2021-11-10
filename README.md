@@ -19,6 +19,7 @@ root
 ├── Studies: all code used in experimental paradigm
 │   └── Experiment_1: reference files used to present experimental stimuli
 │   └── Experiment_2: reference files used to analyze the data
+
 ```
 ## Running our code
 
@@ -28,5 +29,8 @@ To run the included code, used for the analyses presented in our paper, please f
 To view the stimuli presented to subject, this app will require Flask
 1. Clone this repository:
    1. `git clone https://github.com/PhilLaboratory/BilliardsApp.git `
+2. Install dependencies from the requirements.txt, 
+   1. `pip install -r requirements.txt`
+3.  
 
 

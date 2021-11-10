@@ -2,7 +2,6 @@
 Studies/Experiment_1/billiards_app/__init__.py
 Studies/Experiment_1/billiards_app/localData.db
 Studies/Experiment_1/billiards_app/static/stimuli_order.js
-Analysis/Experiment_1/pilot/Plots/*
 *.sqlite
 *.db
 *.venv

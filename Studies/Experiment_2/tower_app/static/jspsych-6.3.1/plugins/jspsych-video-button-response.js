@@ -244,7 +244,7 @@ jsPsych.plugins["video-button-response"] = (function() {
 
     jsPsych.pluginAPI.setTimeout(function() {
         enable_buttons()
-      },8300);
+      },10000);
 
     if(trial.response_allowed_while_playing){
       enable_buttons();

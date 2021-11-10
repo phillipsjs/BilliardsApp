@@ -323,7 +323,7 @@ jsPsych.plugins["video-slider-response"] = (function() {
 
     jsPsych.pluginAPI.setTimeout(function() {
         display_element.querySelector("#sliders").style.display = 'inherit';
-      },8300);
+      },10000);
 
     var first_slide = false;
     var second_slide = false;
