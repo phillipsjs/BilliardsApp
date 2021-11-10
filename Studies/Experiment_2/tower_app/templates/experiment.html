@@ -21,6 +21,35 @@
 </body>
 <script>
 
+    //if (localStorage.getItem('adventure') === '../static/stimuli/part1_phys.mp4'){cond='inanimate'}else{cond='animate'}
+    //if (localStorage.getItem('norm') === '../static/stimuli/test_stim1.mp4'){norm='moral'}else{norm='rational'}
+    cond= 'animate'
+    norm='rational'
+
+    if (cond === 'animate') {
+        if (norm === 'rational') {
+            prompt1 = '<p><span style="font-size: xx-large"><span style="color: seagreen; font-weight: bold">Green</span> wants to protect its own tower.</span></p>'
+            prompt2 = ['<p>Please rate the extent to which you agree with the following: </p> <br><span style="font-size: xx-large;"><span style="color: seagreen;font-weight: bold">Green</span> caused the tower to fall</span>', '<span style="font-size: xx-large;"><span style="color: deeppink; font-weight: bold">Pink</span> caused the tower to fall.</span>'];
+        }
+        if (norm === 'moral') {
+            prompt1 = '<p><span style="font-size: xx-large">It is <span style="color: deeppink; font-weight: bold">Pink</span>\'s job to protect <span style="color: seagreen; font-weight: bold">Green</span>\'s tower.</span></p>'
+            prompt2 = ['<p>Please rate the extent to which you agree with the following: </p> <br><span style="font-size: xx-large;"><span style="color: deeppink; font-weight: bold">Pink</span> caused the tower to fall.</span>', '<span style="font-size: xx-large;"><span style="color: seagreen;font-weight: bold">Green</span> caused the tower to fall</span>'];
+        }
+    }
+
+    if (cond === 'inanimate'){
+        prompt1 = '<p><span style="font-size: xx-large"> Please familiarize yourself with this video. You will asked about a similar video shortly.</span></p>';
+        if (norm === 'rational') {
+            prompt2 = ['<p>Please rate the extent to which you agree with the following: </p> <br><span style="font-size: xx-large;"><span style="color: seagreen;font-weight: bold">Green</span> caused the tower to fall</span>', '<span style="font-size: xx-large;"><span style="color: deeppink; font-weight: bold">Pink</span> caused the tower to fall.</span>'];
+        }
+        if (norm === 'moral') {
+            prompt2 = ['<p>Please rate the extent to which you agree with the following: </p> <br><span style="font-size: xx-large;"><span style="color: deeppink; font-weight: bold">Pink</span> caused the tower to fall.</span>', '<span style="font-size: xx-large;"><span style="color: seagreen;font-weight: bold">Green</span> caused the tower to fall</span>'];
+        }
+    }
+
+
+
+    /*old
     if (localStorage.getItem('adventure') === '../static/stimuli/part1_phys.mp4'){
         // Inanimate condition
         cond = 'inanimate'
@@ -42,7 +71,7 @@
         norm = 'rational'
         prompt2 = ['<p>Please rate the extent to which you agree with the following: </p> <br><span style="font-size: xx-large;"><span style="color: seagreen;font-weight: bold">Green</span> caused the tower to fall</span>', '<span style="font-size: xx-large;"><span style="color: deeppink; font-weight: bold">Pink</span> caused the tower to fall.</span>'];
     }
-
+    */
 
     var timeline = [];
 
@@ -52,10 +81,9 @@
         message: "<p style='font-size: 3em;'>Loading experiment stimuli, this may take a few moments....</p><p style='font-size: 2em;'>Thank you for your patience.</p>",
         video: ['../static/stimuli/part1_phys.mp4', '../static/stimuli/part1_anim.mp4', '../static/stimuli/test_stim1.mp4']}
 
-
     var vid1_phys = {
         type: 'video-button-response',
-        stimulus: [localStorage.getItem('adventure')], //['../static/stimuli/part1_phys.mp4'],
+        stimulus: function(){if (cond==='animate'){return ['../static/stimuli/part1_anim.mp4']}else{return ['../static/stimuli/part1_phys.mp4']}},
         width: 1000,
         choices: ['continue'],
         rate: 1,
@@ -65,7 +93,7 @@
 
     var vid2_test = {
         type: 'video-slider-response',
-        stimulus: [localStorage.getItem('norm')],
+        stimulus: function(){if (norm==='rational'){return ['../static/stimuli/test_stim2.mp4']}else{return ['../static/stimuli/test_stim1.mp4']}},
         width: 1000,
         prompt: prompt2, //['<p>Please rate the extent to which you agree with the following: </p> <br><span style="font-size: xx-large;">The <span style="color: deeppink; font-weight: bold">pink</span> ball caused the tower to fall.</span>', '<span style="font-size: xx-large;">The <span style="color: seagreen;font-weight: bold">green </span>ball caused the tower to fall</span>'],
         labels: ['Disagree', 'Agree'],
