@@ -5,6 +5,7 @@ class Subject(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.DateTime)
     prolificID = db.Column(db.String)
+    jspsychID = db.Column(db.String)
     completion = db.Column(db.Boolean)
     compelete_time = db.Column(db.DateTime)
     exp_cond = db.Column(db.String)
@@ -18,6 +19,7 @@ class Trial(db.Model):
     __tablename__ = 'trials'
     id = db.Column(db.Integer, primary_key=True)
     prolificID = db.Column(db.String)
+    jspsychID = db.Column(db.String)
     time_elapse = db.Column(db.Float)
     cause_agent = db.Column(db.VARCHAR(20))
     cause_patient = db.Column(db.VARCHAR(20))
