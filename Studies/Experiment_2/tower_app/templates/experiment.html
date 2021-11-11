@@ -79,7 +79,8 @@
         type: 'preload',
         auto_preload: true,
         message: "<p style='font-size: 3em;'>Loading experiment stimuli, this may take a few moments....</p><p style='font-size: 2em;'>Thank you for your patience.</p>",
-        video: ['../static/stimuli/part1_phys.mp4', '../static/stimuli/part1_anim.mp4', '../static/stimuli/test_stim1.mp4']}
+        video: ['../static/stimuli/part1_phys.mp4', '../static/stimuli/part1_anim.mp4', '../static/stimuli/test_stim1.mp4','../static/stimuli/test_stim2.mp4'],
+    }
 
     var vid1_phys = {
         type: 'video-button-response',
@@ -127,7 +128,6 @@
                 data: jsPsych.data.getLastTrialData().json(),
                 dataType: "json"
             });
-            console.log(jsPsych.data.getLastTrialData().json())
         }
     };
 
@@ -270,8 +270,8 @@
         }
 
     jsPsych.data.addProperties({
-        subjectID: jsPsych.randomization.randomID(15),
-        prolificID: 'XX', //jsPsych.data.getURLVariable('PROLIFIC_PID'),
+        jspsychID: '{{ jsID }}',
+        prolificID: '{{ proID }}',
         });
 
     var thanks = {
