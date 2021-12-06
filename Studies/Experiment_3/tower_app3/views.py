@@ -13,7 +13,17 @@ def choose():
 @app.route('/consent', methods=['GET', 'POST'])
 def consent():
     if request.method == 'GET':
-        return render_template('/consent.html')
+        n_condition = 2
+        for condition in ['animate_rational', 'animate_moral', 'inanimate_rational', 'inanimate_moral']:
+            if len(Subject.query.filter_by(exp_cond=condition, completion=1).all()) < n_condition:
+                session['cond'] = condition.split('_')[0]
+                session['norm'] = condition.split('_')[1]
+                break
+            else:
+                continue
+        return render_template('/consent.html', cond=condition.split('_')[0], norm=condition.split('_')[1])
+
+
     if request.method == 'POST':
         print('New Subject!')
         dd = request.get_json(force=True)[0]
@@ -32,7 +42,8 @@ def consent():
 @app.route('/experiment', methods=['GET', 'POST'])
 def experiment():
     if request.method == 'GET':
-        return render_template('experiment.html', jsID=session['jspsychID'], proID=session['prolificID'])
+        return render_template('experiment.html', jsID=session['jspsychID'], proID=session['prolificID'],
+                               cond=session['cond'], norm=session['norm'])
 
     if request.method == 'POST':
         dd = request.get_json(force=True)[0]

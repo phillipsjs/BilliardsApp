@@ -21,10 +21,10 @@
 </body>
 <script>
 
-    if (localStorage.getItem('adventure') === '../static/stimuli/part1_phys.mp4'){cond='inanimate'}else{cond='animate'}
-    if (localStorage.getItem('norm') === '../static/stimuli/test_stim1.mp4'){norm='moral'}else{norm='rational'}
-    //cond= 'animate'
-    //norm='rational'
+    //if (localStorage.getItem('adventure') === '../static/stimuli/part1_phys.mp4'){cond='inanimate'}else{cond='animate'}
+    //if (localStorage.getItem('norm') === '../static/stimuli/test_stim1.mp4'){norm='moral'}else{norm='rational'}
+    cond= '{{ cond  }}';
+    norm= '{{ norm }}';
 
     if (cond === 'animate') {
         if (norm === 'rational') {
@@ -63,31 +63,6 @@
         }
     }
 
-
-
-    /*old
-    if (localStorage.getItem('adventure') === '../static/stimuli/part1_phys.mp4'){
-        // Inanimate condition
-        cond = 'inanimate'
-        prompt1 = '<p><span style="font-size: xx-large"> Please familiarize yourself with this video. You will asked about a similar video shortly.</span></p>';
-    } else {
-        // Animate condition
-        cond = 'animate'
-        if (localStorage.getItem('norm') === '../static/stimuli/test_stim1.mp4'){
-            prompt1 = '<p><span style="font-size: xx-large">It is <span style="color: deeppink; font-weight: bold">Pink</span>\'s job to protect <span style="color: seagreen; font-weight: bold">Green</span>\'s tower.</span></p>'}
-        else{prompt1 = '<p><span style="font-size: xx-large"><span style="color: seagreen; font-weight: bold">Green</span> wants to protect its own tower.</span></p>'}
-        }
-
-    if (localStorage.getItem('norm') === '../static/stimuli/test_stim1.mp4'){
-        // Moral norm violation
-        norm = 'moral'
-        prompt2 = ['<p>Please rate the extent to which you agree with the following: </p> <br><span style="font-size: xx-large;"><span style="color: deeppink; font-weight: bold">Pink</span> caused the tower to fall.</span>', '<span style="font-size: xx-large;"><span style="color: seagreen;font-weight: bold">Green</span> caused the tower to fall</span>'];
-    } else {
-        // Rational norm violation
-        norm = 'rational'
-        prompt2 = ['<p>Please rate the extent to which you agree with the following: </p> <br><span style="font-size: xx-large;"><span style="color: seagreen;font-weight: bold">Green</span> caused the tower to fall</span>', '<span style="font-size: xx-large;"><span style="color: deeppink; font-weight: bold">Pink</span> caused the tower to fall.</span>'];
-    }
-    */
 
     var timeline = [];
 
