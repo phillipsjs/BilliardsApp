@@ -20,7 +20,6 @@
 <body>
 </body>
 <script>
-
     //if (localStorage.getItem('adventure') === '../static/stimuli/part1_phys.mp4'){cond='inanimate'}else{cond='animate'}
     //if (localStorage.getItem('norm') === '../static/stimuli/test_stim1.mp4'){norm='moral'}else{norm='rational'}
     cond= '{{ cond  }}';
@@ -28,20 +27,22 @@
 
     if (cond === 'animate') {
         if (norm === 'rational') {
-            prompt1 = '<p><span style="font-size: xx-large"><span style="color: seagreen; font-weight: bold">Green</span> wants to protect its own tower.</span></p>'
+            prompt1 = '<p><span style="font-size: x-large"><span style="color: seagreen; font-weight: bold">Green</span> wants to protect its own tower.</span></p>'
             prompt2 = ['<p>Please rate the extent to which you agree with the following: </p> <br>' +
-            '<p style="font-size: xx-large;">If <span style="color: seagreen; font-weight: bold">Green</span> had not been there, the tower would still have fallen.</p>',
-            '<p style="font-size: xx-large;">I thought <span style="color: seagreen;font-weight: bold">Green</span> would have taken a different path than the one in the video.</p>',
-            '<p style="font-size: xx-large;">If <span style="color: seagreen; font-weight: bold">Green</span> had taken a different path, the tower would have remained standing.</p>',
-            ];
+                '<p style="font-size: x-large;">If <span style="color: seagreen; font-weight: bold">Green</span> had not been there, the tower would have remained standing.</p>',
+                '<p style="font-size: x-large;">If <span style="color: deeppink; font-weight: bold">Pink</span> had not been there, the tower would have remained standing.</p>',
+                '<p style="font-size: x-large;">I expected <span style="color: seagreen;font-weight: bold">Green</span> to move in a different way than it did in the video.</p>',
+                '<p style="font-size: x-large;">If <span style="color: seagreen;font-weight: bold">Green</span> had moved in a different way, the tower would have remained standing.</p>',
+            ]
         }
         if (norm === 'moral') {
             prompt1 = '<p><span style="font-size: xx-large">It is <span style="color: deeppink; font-weight: bold">Pink</span>\'s job to protect <span style="color: seagreen; font-weight: bold">Green</span>\'s tower.</span></p>'
-            prompt2 =  ['<p>Please rate the extent to which you agree with the following: </p> <br>' +
-            '<p style="font-size: xx-large;">If <span style="color: deeppink; font-weight: bold">Pink</span> had not been there, the tower would still have fallen.</p>',
-            '<p style="font-size: xx-large;">I thought <span style="color: deeppink;font-weight: bold">Pink</span> would have taken a different path than the one in the video.</p>',
-            '<p style="font-size: xx-large;">If <span style="color: deeppink; font-weight: bold">Pink</span> had taken a different path, the tower would have remained standing.</p>',
-            ];
+            prompt2 = ['<p>Please rate the extent to which you agree with the following: </p> <br>' +
+                '<p style="font-size: x-large;">If <span style="color: deeppink; font-weight: bold">Pink</span> had not been there, the tower would have remained standing.</p>',
+                '<p style="font-size: x-large;">If <span style="color: seagreen; font-weight: bold">Green</span> had not been there, the tower would have remained standing.</p>',
+                '<p style="font-size: x-large;">I expected <span style="color: deeppink;font-weight: bold">Pink</span> to move in a different way than it did in the video.</p>',
+                '<p style="font-size: x-large;">If <span style="color: deeppink;font-weight: bold">Pink</span> had moved in a different way, the tower would have remained standing.</p>',
+            ]
         }
     }
 
@@ -49,17 +50,20 @@
         prompt1 = '<p><span style="font-size: xx-large"> Please familiarize yourself with this video. You will asked about a similar video shortly.</span></p>';
         if (norm === 'rational') {
             prompt2 = ['<p>Please rate the extent to which you agree with the following: </p> <br>' +
-            '<p style="font-size: xx-large;">If <span style="color: seagreen; font-weight: bold">Green</span> had not been there, the tower would still have fallen.</p>',
-            '<p style="font-size: xx-large;">I thought <span style="color: seagreen;font-weight: bold">Green</span> would have taken a different path than the one in the video.</p>',
-            '<p style="font-size: xx-large;">If <span style="color: seagreen; font-weight: bold">Green</span> had taken a different path, the tower would not have fallen.</p>'
-            ];
+                '<p style="font-size: x-large;">If <span style="color: seagreen; font-weight: bold">Green</span> had not been there, the tower would have remained standing.</p>',
+                '<p style="font-size: x-large;">If <span style="color: deeppink; font-weight: bold">Pink</span> had not been there, the tower would have remained standing.</p>',
+                '<p style="font-size: x-large;">I expected <span style="color: seagreen;font-weight: bold">Green</span> to move in a different way than it did in the video.</p>',
+                '<p style="font-size: x-large;">If <span style="color: seagreen;font-weight: bold">Green</span> had moved in a different way, the tower would have remained standing.</p>',
+            ]
         }
         if (norm === 'moral') {
             prompt2 = ['<p>Please rate the extent to which you agree with the following: </p> <br>' +
-            '<p style="font-size: xx-large;">If <span style="color: deeppink; font-weight: bold">Pink</span> had not been there, the tower would still have fallen.</p>',
-            '<p style="font-size: xx-large;">I thought <span style="color: deeppink;font-weight: bold">Pink</span> would have taken a different path than the one in the video.</p>',
-            '<p style="font-size: xx-large;">If <span style="color: deeppink; font-weight: bold">Pink</span> had taken a different path, the tower would not have fallen.</p>'
-            ];
+                '<p style="font-size: x-large;">If <span style="color: deeppink; font-weight: bold">Pink</span> had not been there, the tower would have remained standing.</p>',
+                '<p style="font-size: x-large;">If <span style="color: seagreen; font-weight: bold">Green</span> had not been there, the tower would have remained standing.</p>',
+                '<p style="font-size: x-large;">I expected <span style="color: deeppink;font-weight: bold">Pink</span> to move in a different way than it did in the video.</p>',
+                '<p style="font-size: x-large;">If <span style="color: deeppink;font-weight: bold">Pink</span> had moved in a different way, the tower would have remained standing.</p>',
+            ]
+
         }
     }
 
@@ -91,6 +95,7 @@
         labels: ['Disagree', 'Agree'],
         rate: 1,
         require_movement: true,
+        video_title: function(){if (cond==='animate'){return prompt1}else{return ""}},
         data: {'experiment_section': 'test_video'},
         on_finish: function () {
             $.ajax({
