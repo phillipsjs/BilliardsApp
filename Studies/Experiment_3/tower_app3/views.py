@@ -13,8 +13,11 @@ def choose():
 @app.route('/consent', methods=['GET', 'POST'])
 def consent():
     if request.method == 'GET':
-        n_condition = 2
         for condition in ['animate_rational', 'animate_moral', 'inanimate_rational', 'inanimate_moral']:
+            if condition.split('_')[0] == 'inanimate':
+                n_condition = 1
+            else:
+                n_condition = 2
             if len(Subject.query.filter_by(exp_cond=condition, completion=1).all()) < n_condition:
                 session['cond'] = condition.split('_')[0]
                 session['norm'] = condition.split('_')[1]
@@ -52,9 +55,11 @@ def experiment():
             tdat = Trial(prolificID=dd['prolificID'],
                          jspsychID=dd['jspsychID'],
                          time_elapse=dd['time_elapsed'],
+                         Q0=str(dd['response_0']),
                          Q1=str(dd['response_1']),
                          Q2=str(dd['response_2']),
                          Q3=str(dd['response_3']),
+                         Q0_rt=str(dd['rt_0']),
                          Q1_rt=str(dd['rt_1']),
                          Q2_rt=str(dd['rt_2']),
                          Q3_rt=str(dd['rt_3']),
