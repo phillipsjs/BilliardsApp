@@ -13,6 +13,7 @@ def choose():
 @app.route('/consent', methods=['GET', 'POST'])
 def consent():
     if request.method == 'GET':
+        '''
         for condition in ['animate_rational', 'animate_moral', 'inanimate_rational', 'inanimate_moral']:
             if condition.split('_')[0] == 'inanimate':
                 n_condition = 1
@@ -24,7 +25,8 @@ def consent():
                 break
             else:
                 continue
-        return render_template('/consent.html', cond=condition.split('_')[0], norm=condition.split('_')[1])
+        '''
+        return render_template('/consent.html', cond='animate', norm='rational')
 
 
     if request.method == 'POST':
@@ -46,15 +48,19 @@ def consent():
 def experiment():
     if request.method == 'GET':
         return render_template('experiment.html', jsID=session['jspsychID'], proID=session['prolificID'],
-                               cond=session['cond'], norm=session['norm'])
+                               cond='animate', norm='rational')
 
     if request.method == 'POST':
         dd = request.get_json(force=True)[0]
         sid = Subject.query.filter_by(jspsychID=dd['jspsychID']).first()
+        if dd['experiment_section'] == 'first_video':
+            session['s1'] = dd['stimulus'][0]
         if dd['experiment_section'] == 'test_video':
             tdat = Trial(prolificID=dd['prolificID'],
                          jspsychID=dd['jspsychID'],
                          time_elapse=dd['time_elapsed'],
+                         stim1=session['s1'],
+                         stim2=dd['stimulus'][0],
                          Q0=str(dd['response_0']),
                          Q1=str(dd['response_1']),
                          Q2=str(dd['response_2']),
