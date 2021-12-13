@@ -21,6 +21,8 @@ class Trial(db.Model):
     prolificID = db.Column(db.String)
     jspsychID = db.Column(db.String)
     time_elapse = db.Column(db.Float)
+    stim1 = db.Column(db.VARCHAR(40))
+    stim2 = db.Column(db.VARCHAR(40))
     Q0 = db.Column(db.VARCHAR(20))
     Q1 = db.Column(db.VARCHAR(20))
     Q2 = db.Column(db.VARCHAR(20))
