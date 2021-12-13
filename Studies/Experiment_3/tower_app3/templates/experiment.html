@@ -85,7 +85,19 @@
         rate: 1,
         prompt: prompt1, //'<span style="font-size: xx-large"> Please familiarize yourself with this video. You will asked about a similar video shortly.</span>',
         response_allowed_while_playing: false,
+        data: {'experiment_section': 'first_video'},
+        on_finish: function () {
+            $.ajax({
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                url: "experiment",
+                traditional: true,
+                data: jsPsych.data.getLastTrialData().json(),
+                dataType: "json"
+            });
+            console.log(jsPsych.data.getLastTrialData().json())
         }
+    }
 
     var vid2_test = {
         type: 'video-slider-response',
