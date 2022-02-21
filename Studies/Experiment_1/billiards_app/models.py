@@ -9,7 +9,6 @@ class Subject(db.Model):
     prolificID = db.Column(db.String)
     completion = db.Column(db.Boolean)
     condition = db.Column(db.String)
-    trials = db.relationship('Trial', backref='subject', lazy='dynamic', cascade="all, delete-orphan")
 
     def __repr__(self):
         return '<Subject %r>' % self.id
