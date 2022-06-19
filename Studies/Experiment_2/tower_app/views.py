@@ -23,7 +23,7 @@ def consent():
             subj = Subject(date=datetime.datetime.now(),
                            prolificID=dd['prolificID'],
                            jspsychID=dd['jspsychID'],
-                           exp_cond='animate_rational')
+                           exp_cond='animate_moral')
             db.session.add(subj)
             db.session.commit()
         return redirect(url_for('experiment'))#make_response(200)

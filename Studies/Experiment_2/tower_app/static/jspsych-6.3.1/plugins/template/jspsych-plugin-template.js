@@ -1,5 +1,5 @@
 /*
- * Example plugin template
+ * Example plugin templates
  */
 
 jsPsych.plugins["PLUGIN-NAME"] = (function() {

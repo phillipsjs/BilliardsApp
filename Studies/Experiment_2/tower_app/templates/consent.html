@@ -61,7 +61,7 @@
 
     jsPsych.data.addProperties({
         jspsychID: jsPsych.randomization.randomID(15),
-        prolificID: jsPsych.data.getURLVariable('PROLIFIC_PID') //function(){if (window.location.href.indexOf("PROLIFIC_PID") > -1) {
+        prolificID: jsPsych.randomization.randomID(15)//jsPsych.data.getURLVariable('PROLIFIC_PID') //function(){if (window.location.href.indexOf("PROLIFIC_PID") > -1) {
             //jsPsych.data.getURLVariable('PROLIFIC_PID')} else {return 'not_prolific_xx'}},
         });
 

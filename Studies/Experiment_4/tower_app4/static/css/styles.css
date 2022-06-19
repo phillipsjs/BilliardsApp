@@ -1,0 +1,11 @@
+#stage_row{
+    height: 100vh;
+    width: 100vw;
+    background: rgb(31, 47, 47);
+    color: white;
+}
+
+label.btn.btn-outline-primary{
+    width: inherit;
+    font-size: 1.5em;
+}
