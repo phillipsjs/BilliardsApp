@@ -8,4 +8,6 @@
 label.btn.btn-outline-primary{
     width: inherit;
     font-size: 1.5em;
+    color: white;
+    border-color: white;
 }

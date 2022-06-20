@@ -23,9 +23,7 @@ class Subject(db.Model):
     Q4_rt = db.Column(db.Interval)
     anim_check = db.Column(db.Boolean)
     tower_check = db.Column(db.Boolean)
-    agent_check = db.Column(db.Boolean)
-    sub_feedback1 = db.Column(db.VARCHAR(50))
-    sub_feedback2 = db.Column(db.VARCHAR(50))
+    sub_feedback = db.Column(db.VARCHAR(500))
     complete = db.Column(db.Boolean)
 
 

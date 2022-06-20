@@ -70,10 +70,17 @@ def stim2():
     if request.method == 'GET':
         t_dat = Subject.query.filter_by(prolific_id=request.args.get('PROLIFIC_PID')).first()
         vid = '/static/stim_vids/'+t_dat.stim2
-        msg = "Please watch video clip below carefully"
-        rating = ["The pink ball caused the tower to collapse.", "The yellow ball caused the tower to collapse.",
-                  "If the pink ball was not there, the tower would not be damaged",
-                  "If the yellow ball was not there, the tower would not be damaged"]
+        msg = "Please watch the video clip below carefully"
+        if t_dat.stim2 == 'p_y_v2.mp4':
+            rating = ["The <span style='color:yellow;'>yellow</span> ball caused the tower to collapse.",
+                      "The <span style='color:magenta;'>pink</span> ball caused the tower to collapse.",
+                      "If the <span style='color:yellow;'>yellow</span> ball was not there, the tower would not have collapsed.",
+                      "If the <span style='color:magenta;'>pink</span> ball was not there, the tower would not have collapsed."]
+        else:
+            rating = ["The <span style='color:magenta;'>pink</span> ball caused the tower to collapse.",
+                      "The <span style='color:yellow;'>yellow</span> ball caused the tower to collapse.",
+                      "If the <span style='color:magenta;'>pink</span> ball was not there, the tower would not have collapsed.",
+                      "If the <span style='color:yellow;'>yellow</span> ball was not there, the tower would not have collapsed."]
         return render_template('s1.html', stim=vid, prompt=msg, ratings=rating)
     if request.method == 'POST':
         s_dat = request.get_json()
@@ -90,4 +97,31 @@ def stim2():
         db.session.commit()
         return make_response('200')
 
-## TODO Make sure order of questions matches stimulus so agent question is first then patient.
+
+@app.route('/a_check', methods=['GET', 'POST'])
+def a_check():
+    if request.method =='GET':
+        t_dat = Subject.query.filter_by(prolific_id=request.args.get('PROLIFIC_PID')).first()
+        return render_template('a_check.html', s1=t_dat.stim1, s2=t_dat.stim2)
+    if request.method == 'POST':
+        s_dat = request.get_json()
+        subj = Subject.query.filter_by(prolific_id=s_dat['prolific_id']).first()
+        subj.anim_check = True
+        subj.tower_check = True
+        db.session.add(subj)
+        db.session.commit()
+        return make_response('200')
+
+
+@app.route('/thankyou', methods=['GET', 'POST'])
+def thankyou():
+    if request.method =='GET':
+        return render_template('thankyou.html', cc=comp_code)
+    if request.method == 'POST':
+        s_dat = request.get_json()
+        subj = Subject.query.filter_by(prolific_id=s_dat['prolific_id']).first()
+        subj.sub_feedback = s_dat['feedback']
+        subj.complete = True
+        db.session.add(subj)
+        db.session.commit()
+        return make_response('200')
