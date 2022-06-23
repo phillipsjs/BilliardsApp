@@ -74,13 +74,13 @@ def stim2():
         if t_dat.stim2 == 'p_y_v2.mp4':
             rating = ["The <span style='color:yellow;'>yellow</span> ball caused the tower to collapse.",
                       "The <span style='color:magenta;'>pink</span> ball caused the tower to collapse.",
-                      "If the <span style='color:yellow;'>yellow</span> ball was not there, the tower would not have collapsed.",
-                      "If the <span style='color:magenta;'>pink</span> ball was not there, the tower would not have collapsed."]
+                      "If the <span style='color:yellow;'>yellow</span> ball was not there, the tower would have remained standing.",
+                      "If the <span style='color:magenta;'>pink</span> ball was not there, the tower would have remained standing."]
         else:
             rating = ["The <span style='color:magenta;'>pink</span> ball caused the tower to collapse.",
                       "The <span style='color:yellow;'>yellow</span> ball caused the tower to collapse.",
-                      "If the <span style='color:magenta;'>pink</span> ball was not there, the tower would not have collapsed.",
-                      "If the <span style='color:yellow;'>yellow</span> ball was not there, the tower would not have collapsed."]
+                      "If the <span style='color:magenta;'>pink</span> ball was not there, the tower would have remained standing.",
+                      "If the <span style='color:yellow;'>yellow</span> ball was not there, the tower would have remained standing."]
         return render_template('s1.html', stim=vid, prompt=msg, ratings=rating)
     if request.method == 'POST':
         s_dat = request.get_json()
