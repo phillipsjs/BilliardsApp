@@ -67,24 +67,22 @@
         })
     }
 
-    function subjectResponse(e){
-        if (e.key === " "){
-            get_answers();
-            // make sure each question is answered
-            if (Object.values(s_response).includes(0)){
-                // find key in s_response where value is null
-                var notAnswered = Object.keys(s_response).find(key => s_response[key] === 0)
-                // toggle the class with animation
-                $('#'+notAnswered).toggleClass("animated tada")
-                setTimeout(function(){$('#'+notAnswered).toggleClass("animated tada")}, 800);
-            }else{
-                // submit s_response
-                submit_tdat()
-                console.log('answers posted')
-            }
+    function subjectResponse(){
+        get_answers();
+        // make sure each question is answered
+        if (Object.values(s_response).includes(0)){
+            // find key in s_response where value is null
+            var notAnswered = Object.keys(s_response).find(key => s_response[key] === 0)
+            // toggle the class with animation
+            $('#'+notAnswered).toggleClass("animated tada")
+            setTimeout(function(){$('#'+notAnswered).toggleClass("animated tada")}, 800);
+        }else{
+            // submit s_response
+            submit_tdat()
+            console.log('answers posted')
         }
     }
-    document.addEventListener("keydown", subjectResponse);
+
     </script>
 {% endblock %}
 
@@ -119,8 +117,10 @@
             </div>
             <hr/>
 
-            <div class="row justify-content-center align-self-center" id="cont_instruct">
-                <p class="text-center" style="font-size: large; font-style: italic;">After making ALL your selections, press the space bar to continue</p>
+            <div class="row justify-content-center text-center">
+                <div class="col-sm-4 text-center">
+                    <a href="#" type="button" id="cont_butt" class="btn btn-primary btn-lg" style="font-size: large;" onclick="subjectResponse()">Continue</a>
+                </div>
             </div>
 
 
