@@ -7,7 +7,8 @@ from tqdm import tqdm
 
 
 #vid_paths = sorted(glob(os.path.join('./billiards_app/static/videos/revised', '*.mp4')))
-vid_paths = sorted(glob(os.path.join('./Studies/Experiment_1/billiards_app/static/testvid', '*.mp4')))
+vid_paths = sorted(glob(os.path.join('../../Studies/Experiment_4/tower_app4/static/stim_vids/', '*.mp4')))
+outpath = '../../Studies/Experiment_4/tower_app4/static/stim_vids/gifs'
 
 def convertVid_toimg(path):
     filename = path.split('/')[-1]
@@ -15,21 +16,21 @@ def convertVid_toimg(path):
     still_reading, image = cap.read()
     frame_count = 0
     while still_reading:
-        cv2.imwrite(f'./Studies/Experiment_1/billiards_app/static/videos/images/{filename}_frame_{frame_count:03d}.jpg', image)
+        cv2.imwrite(f'{outpath}/{filename}_frame_{frame_count:03d}.jpg', image)
         still_reading, image = cap.read()
         frame_count += 1
 
 
 def img_toGif(filename):
     filename = filename.split('.')[0]
-    images = glob(os.path.join(f"./Studies/Experiment_1/billiards_app/static/videos/images", f"{filename}*.jpg"))
+    images = glob(os.path.join(f"{outpath}", f"{filename}*.jpg"))
     images.sort()
     frames = [Image.open(image) for image in images]
     frame_one = frames[0]
-    frame_one.save("./Studies/Experiment_1/billiards_app/static/videos/images/"+filename+".gif", format="GIF", append_images=frames,
+    frame_one.save(outpath+filename+".gif", format="GIF", append_images=frames,
                    save_all=True, duration=32, loop=0, optimized=True)
     [os.remove(framefile) for framefile in
-     glob(os.path.join("./Studies/Experiment_1/billiards_app/static/videos/images/", filename + "*.jpg"))]
+     glob(os.path.join(outpath, filename + "*.jpg"))]
 
 
 def compress_video(video_full_path, output_file_name, target_size):
@@ -68,7 +69,7 @@ def compress_video(video_full_path, output_file_name, target_size):
 for vid in tqdm(vid_paths):
     filename = vid.split('/')[-1].split('.')[0]
     print(f'compressing video: {filename}')
-    compress_video(vid, f'./Studies/Experiment_1/billiards_app/static/videos/{filename}.mp4', 50 * 1000)
+    compress_video(vid, f'{outpath}/{filename}.mp4', 50 * 1000)
 
 # make gifs
 for p in tqdm(vid_paths):
