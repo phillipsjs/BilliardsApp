@@ -12,9 +12,14 @@ comp_code = "XXXX"
 
 @app.route('/')
 def index():
+    if request.args.get('PROLIFIC_PID') is not None:
+        prolific_id = request.args.get('PROLIFIC_PID')
+        session_id = request.args.get('SESSION_ID')
     # replace random with comments on prolific
-    prolific_id = np.random.random()  # request.args.get('PROLIFIC_PID')
-    session_id = np.random.random()  # request.args.get('SESSION_ID')
+    else:
+        prolific_id = np.random.random()  # request.args.get('PROLIFIC_PID')
+        session_id = np.random.random()  # request.args.get('SESSION_ID')
+
     return redirect(url_for('welcome', PROLIFIC_PID=prolific_id, SESSION_ID=session_id))
 
 
