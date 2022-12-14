@@ -17,7 +17,7 @@ def index():
         session_id = request.args.get('SESSION_ID')
     # replace random with comments on prolific
     else:
-        prolific_id = np.random.random()  # request.args.get('PROLIFIC_PID')
+        prolific_id = 'test'+np.random.random()  # request.args.get('PROLIFIC_PID')
         session_id = np.random.random()  # request.args.get('SESSION_ID')
 
     return redirect(url_for('welcome', PROLIFIC_PID=prolific_id, SESSION_ID=session_id))
