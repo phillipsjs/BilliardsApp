@@ -6,7 +6,7 @@ app = Flask(__name__)
 #with open('/etc/config.json') as config_file:
 #    config = json.load(config_file)
 app.config['SECRET_KEY'] = 'jhgdrmkfsjdhg'#config.get('SECRET_KEY')
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///exp4_localData.db" #config.get('SQLALCHEMY_DATABASE_URI')
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///exp4_Data.db" #config.get('SQLALCHEMY_DATABASE_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 CORS(app)

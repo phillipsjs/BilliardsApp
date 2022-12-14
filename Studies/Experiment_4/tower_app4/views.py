@@ -8,7 +8,7 @@ from ast import literal_eval
 
 
 comp_code = "XXXX"
-
+cohort = 'CF_cohort'
 
 @app.route('/')
 def index():
@@ -17,7 +17,7 @@ def index():
         session_id = request.args.get('SESSION_ID')
     # replace random with comments on prolific
     else:
-        prolific_id = 'test'+np.random.random()  # request.args.get('PROLIFIC_PID')
+        prolific_id = 'test'+str(np.random.random())  # request.args.get('PROLIFIC_PID')
         session_id = np.random.random()  # request.args.get('SESSION_ID')
 
     return redirect(url_for('welcome', PROLIFIC_PID=prolific_id, SESSION_ID=session_id))
@@ -45,7 +45,7 @@ def new_subject():
         s1 = np.random.choice(['phys_v1.mp4', 'anim_v1.mp4'])
         s2 = np.random.choice(['y_p_v2.mp4', 'p_y_v2.mp4'])
         t_dat = Subject(prolific_id=request.args.get('PROLIFIC_PID'), session_id=request.args.get('SESSION_ID'),
-                        participation_date=datetime.now(), stim1=s1, stim2=s2)
+                        participation_date=datetime.now(), stim1=s1, stim2=s2, cohort=cohort)
         db.session.add(t_dat)
         db.session.commit()
     return redirect(url_for('instruct', PROLIFIC_PID=request.args.get('PROLIFIC_PID'),
@@ -77,13 +77,13 @@ def stim2():
         vid = '/static/stim_vids/'+t_dat.stim2
         msg = "Please watch the video clip below carefully"
         if t_dat.stim2 == 'p_y_v2.mp4':
-            rating = ["The <span style='color:yellow;'>yellow</span> ball caused the tower to collapse.",
-                      "The <span style='color:magenta;'>pink</span> ball caused the tower to collapse.",
+            rating = [#"The <span style='color:yellow;'>yellow</span> ball caused the tower to collapse.",
+                      #"The <span style='color:magenta;'>pink</span> ball caused the tower to collapse.",
                       "If the <span style='color:yellow;'>yellow</span> ball had not been there, the tower would have remained standing.",
                       "If the <span style='color:magenta;'>pink</span> ball had not been there, the tower would have remained standing."]
         else:
-            rating = ["The <span style='color:magenta;'>pink</span> ball caused the tower to collapse.",
-                      "The <span style='color:yellow;'>yellow</span> ball caused the tower to collapse.",
+            rating = [#"The <span style='color:magenta;'>pink</span> ball caused the tower to collapse.",
+                      #"The <span style='color:yellow;'>yellow</span> ball caused the tower to collapse.",
                       "If the <span style='color:magenta;'>pink</span> ball had not been there, the tower would have remained standing.",
                       "If the <span style='color:yellow;'>yellow</span> ball had not been there, the tower would have remained standing."]
         return render_template('s1.html', stim=vid, prompt=msg, ratings=rating)
@@ -94,10 +94,10 @@ def stim2():
         t_dat.Q1_rt = datetime.fromtimestamp(s_dat['q_1_rt'] / 1000.0) - datetime.fromtimestamp(s_dat['q_1_onset'] / 1000.0)
         t_dat.Q2 = str(s_dat['q_2'])
         t_dat.Q2_rt = datetime.fromtimestamp(s_dat['q_2_rt'] / 1000.0) - datetime.fromtimestamp(s_dat['q_2_onset'] / 1000.0)
-        t_dat.Q3 = str(s_dat['q_3'])
-        t_dat.Q3_rt = datetime.fromtimestamp(s_dat['q_3_rt'] / 1000.0) - datetime.fromtimestamp(s_dat['q_3_onset'] / 1000.0)
-        t_dat.Q4 = str(s_dat['q_4'])
-        t_dat.Q4_rt = datetime.fromtimestamp(s_dat['q_4_rt'] / 1000.0) - datetime.fromtimestamp(s_dat['q_4_onset'] / 1000.0)
+        #t_dat.Q3 = str(s_dat['q_3'])
+        #t_dat.Q3_rt = datetime.fromtimestamp(s_dat['q_3_rt'] / 1000.0) - datetime.fromtimestamp(s_dat['q_3_onset'] / 1000.0)
+        #t_dat.Q4 = str(s_dat['q_4'])
+        #t_dat.Q4_rt = datetime.fromtimestamp(s_dat['q_4_rt'] / 1000.0) - datetime.fromtimestamp(s_dat['q_4_onset'] / 1000.0)
         db.session.add(t_dat)
         db.session.commit()
         return make_response('200')
