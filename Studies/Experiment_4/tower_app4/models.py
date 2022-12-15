@@ -26,6 +26,7 @@ class Subject(db.Model):
     sub_feedback = db.Column(db.VARCHAR(500))
     complete = db.Column(db.Boolean)
     cohort = db.Column(db.VARCHAR(200))
+    question_order = db.Column(db.VARCHAR(200))
 
 
 

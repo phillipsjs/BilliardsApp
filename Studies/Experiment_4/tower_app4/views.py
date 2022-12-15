@@ -8,7 +8,7 @@ from ast import literal_eval
 
 
 comp_code = "XXXX"
-cohort = 'CF_cohort'
+cohort = 'combine_cohort'
 
 @app.route('/')
 def index():
@@ -77,15 +77,43 @@ def stim2():
         vid = '/static/stim_vids/'+t_dat.stim2
         msg = "Please watch the video clip below carefully"
         if t_dat.stim2 == 'p_y_v2.mp4':
-            rating = [#"The <span style='color:yellow;'>yellow</span> ball caused the tower to collapse.",
-                      #"The <span style='color:magenta;'>pink</span> ball caused the tower to collapse.",
-                      "If the <span style='color:yellow;'>yellow</span> ball had not been there, the tower would have remained standing.",
-                      "If the <span style='color:magenta;'>pink</span> ball had not been there, the tower would have remained standing."]
+            r1 = ["The <span style='color:yellow;'>yellow</span> ball caused the tower to collapse.",
+                  "The <span style='color:magenta;'>pink</span> ball caused the tower to collapse.",
+                  "If the <span style='color:yellow;'>yellow</span> ball had not been there, the tower would have remained standing.",
+                  "If the <span style='color:magenta;'>pink</span> ball had not been there, the tower would have remained standing."
+                  ]
+            r2 = ["If the <span style='color:yellow;'>yellow</span> ball had not been there, the tower would have remained standing.",
+                "If the <span style='color:magenta;'>pink</span> ball had not been there, the tower would have remained standing.",
+                "The <span style='color:yellow;'>yellow</span> ball caused the tower to collapse.",
+                "The <span style='color:magenta;'>pink</span> ball caused the tower to collapse."]
+            order = np.random.choice(['cause_first', 'CF_first'], p=[.5,.5])
+            if order == 'cause_first':
+                rating = r1
+            else:
+                rating = r2
+            t_dat.question_order = order
+            db.session.add(t_dat)
+            db.session.commit()
         else:
-            rating = [#"The <span style='color:magenta;'>pink</span> ball caused the tower to collapse.",
-                      #"The <span style='color:yellow;'>yellow</span> ball caused the tower to collapse.",
-                      "If the <span style='color:magenta;'>pink</span> ball had not been there, the tower would have remained standing.",
-                      "If the <span style='color:yellow;'>yellow</span> ball had not been there, the tower would have remained standing."]
+            r1 = ["The <span style='color:magenta;'>pink</span> ball caused the tower to collapse.",
+                  "The <span style='color:yellow;'>yellow</span> ball caused the tower to collapse.",
+                  "If the <span style='color:magenta;'>pink</span> ball had not been there, the tower would have remained standing.",
+                  "If the <span style='color:yellow;'>yellow</span> ball had not been there, the tower would have remained standing."
+                  ]
+            r2 = ["If the <span style='color:magenta;'>pink</span> ball had not been there, the tower would have remained standing.",
+                  "If the <span style='color:yellow;'>yellow</span> ball had not been there, the tower would have remained standing.",
+                 "The <span style='color:magenta;'>pink</span> ball caused the tower to collapse.",
+                  "The <span style='color:yellow;'>yellow</span> ball caused the tower to collapse."
+                  ]
+            order = np.random.choice(['cause_first', 'CF_first'], p=[.5, .5])
+            if order == 'cause_first':
+                rating = r1
+            else:
+                rating = r2
+            t_dat.question_order = order
+            db.session.add(t_dat)
+            db.session.commit()
+
         return render_template('s1.html', stim=vid, prompt=msg, ratings=rating)
     if request.method == 'POST':
         s_dat = request.get_json()
@@ -94,10 +122,10 @@ def stim2():
         t_dat.Q1_rt = datetime.fromtimestamp(s_dat['q_1_rt'] / 1000.0) - datetime.fromtimestamp(s_dat['q_1_onset'] / 1000.0)
         t_dat.Q2 = str(s_dat['q_2'])
         t_dat.Q2_rt = datetime.fromtimestamp(s_dat['q_2_rt'] / 1000.0) - datetime.fromtimestamp(s_dat['q_2_onset'] / 1000.0)
-        #t_dat.Q3 = str(s_dat['q_3'])
-        #t_dat.Q3_rt = datetime.fromtimestamp(s_dat['q_3_rt'] / 1000.0) - datetime.fromtimestamp(s_dat['q_3_onset'] / 1000.0)
-        #t_dat.Q4 = str(s_dat['q_4'])
-        #t_dat.Q4_rt = datetime.fromtimestamp(s_dat['q_4_rt'] / 1000.0) - datetime.fromtimestamp(s_dat['q_4_onset'] / 1000.0)
+        t_dat.Q3 = str(s_dat['q_3'])
+        t_dat.Q3_rt = datetime.fromtimestamp(s_dat['q_3_rt'] / 1000.0) - datetime.fromtimestamp(s_dat['q_3_onset'] / 1000.0)
+        t_dat.Q4 = str(s_dat['q_4'])
+        t_dat.Q4_rt = datetime.fromtimestamp(s_dat['q_4_rt'] / 1000.0) - datetime.fromtimestamp(s_dat['q_4_onset'] / 1000.0)
         db.session.add(t_dat)
         db.session.commit()
         return make_response('200')
