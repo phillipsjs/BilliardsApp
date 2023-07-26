@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tower</title>
+        <link rel="icon" href="static/favicon.ico" type="image/x-icon" />
+    	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="../static/jspsych-6.3.1/jspsych.js"></script>
+        <script src="../static/jspsych-6.3.1/plugins/jspsych-html-button-response.js"></script>
+        <script src="../static/jspsych-6.3.1/plugins/jspsych-survey-text.js"></script>
+        <script src="../static/jspsych-6.3.1/plugins/jspsych-html-keyboard-response.js"></script>
+        <script src="../static/jspsych-6.3.1/plugins/jspsych-image-keyboard-response.js"></script>
+        <script src="../static/jspsych-6.3.1/plugins/jspsych-video-slider-response.js"></script>
+        <script src="../static/jspsych-6.3.1/plugins/jspsych-video-button-response.js"></script>
+        <script src="../static/jspsych-6.3.1/plugins/jspsych-survey-text.js"></script>
+        <script src="../static/jspsych-6.3.1/plugins/jspsych-preload.js"></script>
+        <link href="../static/jspsych-6.3.1/fonts/">
+        <link href="../static/jspsych-6.3.1/css/jspsych.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+</body>
+<script>
+    if (localStorage.getItem('adventure') === '../static/stimuli/part1_phys.mp4'){cond='inanimate'}else{cond='animate'}
+    if (localStorage.getItem('norm') === '../static/stimuli/test_stim1.mp4'){norm='moral'}else{norm='rational'}
+    //cond= '{{ cond  }}';
+    //norm= '{{ norm }}';
+
+    if (cond === 'animate') {
+        if (norm === 'rational') {
+            prompt1 = '<p><span style="font-size: x-large"><span style="color: seagreen; font-weight: bold">Green</span> wants to protect its own tower.</span></p>'
+            prompt2 = ['<p>Please rate the extent to which you agree with the following: </p> <br>' +
+                '<p style="font-size: x-large;">If <span style="color: seagreen; font-weight: bold">Green</span> had not been there, the tower would have remained standing.</p>',
+                '<p style="font-size: x-large;">If <span style="color: deeppink; font-weight: bold">Pink</span> had not been there, the tower would have remained standing.</p>',
+                '<p style="font-size: x-large;">I expected <span style="color: seagreen;font-weight: bold">Green</span> to move in a different way than it did in the video.</p>',
+                '<p style="font-size: x-large;">If <span style="color: seagreen;font-weight: bold">Green</span> had moved in a different way, the tower would have remained standing.</p>',
+            ]
+        }
+        if (norm === 'moral') {
+            prompt1 = '<p><span style="font-size: xx-large">It is <span style="color: deeppink; font-weight: bold">Pink</span>\'s job to protect <span style="color: seagreen; font-weight: bold">Green</span>\'s tower.</span></p>'
+            prompt2 = ['<p>Please rate the extent to which you agree with the following: </p> <br>' +
+                '<p style="font-size: x-large;">If <span style="color: deeppink; font-weight: bold">Pink</span> had not been there, the tower would have remained standing.</p>',
+                '<p style="font-size: x-large;">If <span style="color: seagreen; font-weight: bold">Green</span> had not been there, the tower would have remained standing.</p>',
+                '<p style="font-size: x-large;">I expected <span style="color: deeppink;font-weight: bold">Pink</span> to move in a different way than it did in the video.</p>',
+                '<p style="font-size: x-large;">If <span style="color: deeppink;font-weight: bold">Pink</span> had moved in a different way, the tower would have remained standing.</p>',
+            ]
+        }
+    }
+
+    if (cond === 'inanimate'){
+        prompt1 = '<p><span style="font-size: xx-large"> Please familiarize yourself with this video. You will asked about a similar video shortly.</span></p>';
+        if (norm === 'rational') {
+            prompt2 = ['<p>Please rate the extent to which you agree with the following: </p> <br>' +
+                '<p style="font-size: x-large;">If <span style="color: seagreen; font-weight: bold">Green</span> had not been there, the tower would have remained standing.</p>',
+                '<p style="font-size: x-large;">If <span style="color: deeppink; font-weight: bold">Pink</span> had not been there, the tower would have remained standing.</p>',
+                '<p style="font-size: x-large;">I expected <span style="color: seagreen;font-weight: bold">Green</span> to move in a different way than it did in the video.</p>',
+                '<p style="font-size: x-large;">If <span style="color: seagreen;font-weight: bold">Green</span> had moved in a different way, the tower would have remained standing.</p>',
+            ]
+        }
+        if (norm === 'moral') {
+            prompt2 = ['<p>Please rate the extent to which you agree with the following: </p> <br>' +
+                '<p style="font-size: x-large;">If <span style="color: deeppink; font-weight: bold">Pink</span> had not been there, the tower would have remained standing.</p>',
+                '<p style="font-size: x-large;">If <span style="color: seagreen; font-weight: bold">Green</span> had not been there, the tower would have remained standing.</p>',
+                '<p style="font-size: x-large;">I expected <span style="color: deeppink;font-weight: bold">Pink</span> to move in a different way than it did in the video.</p>',
+                '<p style="font-size: x-large;">If <span style="color: deeppink;font-weight: bold">Pink</span> had moved in a different way, the tower would have remained standing.</p>',
+            ]
+
+        }
+    }
+
+
+    var timeline = [];
+
+    var preload = {
+        type: 'preload',
+        auto_preload: true,
+        message: "<p style='font-size: 3em;'>Loading experiment stimuli, this may take a few moments....</p><p style='font-size: 2em;'>Thank you for your patience.</p>",
+        video: ['../static/stimuli/part1_phys.mp4', '../static/stimuli/part1_anim.mp4', '../static/stimuli/test_stim1.mp4','../static/stimuli/test_stim2.mp4'],
+    }
+
+    var vid1_phys = {
+        type: 'video-button-response',
+        stimulus: function(){if (cond==='animate'){return ['../static/stimuli/part1_anim.mp4']}else{return ['../static/stimuli/part1_phys.mp4']}},
+        width: 1000,
+        choices: ['continue'],
+        rate: 1,
+        prompt: prompt1, //'<span style="font-size: xx-large"> Please familiarize yourself with this video. You will asked about a similar video shortly.</span>',
+        response_allowed_while_playing: false,
+        data: {'experiment_section': 'first_video'},
+        on_finish: function () {
+            $.ajax({
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                url: "experiment",
+                traditional: true,
+                data: jsPsych.data.getLastTrialData().json(),
+                dataType: "json"
+            });
+            console.log(jsPsych.data.getLastTrialData().json())
+        }
+    }
+
+    var vid2_test = {
+        type: 'video-slider-response',
+        stimulus: function(){if (norm==='rational'){return ['../static/stimuli/test_stim2.mp4']}else{return ['../static/stimuli/test_stim1.mp4']}},
+        width: 1000,
+        prompt: prompt2, //['<p>Please rate the extent to which you agree with the following: </p> <br><span style="font-size: xx-large;">The <span style="color: deeppink; font-weight: bold">pink</span> ball caused the tower to fall.</span>', '<span style="font-size: xx-large;">The <span style="color: seagreen;font-weight: bold">green </span>ball caused the tower to fall</span>'],
+        labels: ['Disagree', 'Agree'],
+        rate: 1,
+        require_movement: true,
+        video_title: function(){if (cond==='animate'){return prompt1}else{return ""}},
+        data: {'experiment_section': 'test_video'},
+        on_finish: function () {
+            $.ajax({
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                url: "experiment",
+                traditional: true,
+                data: jsPsych.data.getLastTrialData().json(),
+                dataType: "json"
+            });
+            console.log(jsPsych.data.getLastTrialData().json())
+        }
+    }
+
+    var anim_check = {
+        type: 'html-button-response',
+        stimulus: '<h2> The balls were...</h2>',
+        choices: ['<span style="font-size: 40px;">Animate</span>', '<span style="font-size: 40px;">Inanimate</span>'],
+        data: {'experiment_section': 'anim_check'},
+        on_finish: function () {
+            $.ajax({
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                url: "experiment",
+                traditional: true,
+                data: jsPsych.data.getLastTrialData().json(),
+                dataType: "json"
+            });
+        }
+    };
+
+    var anim_feedback = {
+        type: 'html-button-response',
+        stimulus: function(){
+            if (cond === 'animate' && jsPsych.data.getLastTrialData().values()[0]["response"] === 1){
+                correct_resp = false;
+                return '<h1>Incorrect</h1><br>'}
+            else{
+                correct_resp = true;
+                return '<h1>Correct</h1><br>'}},
+        prompt:function(){
+            if (correct_resp === false){return '<h2>click the button below to re-watch the clips and try again</h2>'}
+            else{return '<h2>click the button below to continue</h2>'}},
+        choices: ['continue'],
+        on_finish: function(){
+            if (correct_resp === false){window.location.reload();}
+            return},
+        post_trial_gap: 500
+    };
+
+    var tower_check = {
+        type: 'html-button-response',
+        stimulus: '<h1>Comprehension Check</h1><br>',
+        choices: ['<span style="color: deeppink; font-weight: bold; font-size: 40px;">Pink</span>', '<span style="color: seagreen; font-weight: bold; font-size: 40px;">Green</span>'],
+        prompt:  '<h2>Who collided with the tower? </h2>',
+        data: {'experiment_section': 'tower_check'},
+        on_finish: function () {
+            $.ajax({
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                url: "experiment",
+                traditional: true,
+                data: jsPsych.data.getLastTrialData().json(),
+                dataType: "json"
+            });
+            console.log(jsPsych.data.getLastTrialData().json())
+        }
+    };
+
+    var tower_feedback = {
+        type: 'html-button-response',
+        stimulus: function(){
+            if (norm === 'rational' && jsPsych.data.getLastTrialData().values()[0]['response'] === 1){
+                correct_resp = false;
+                return '<h1>Incorrect</h2><br>'}
+            else{
+                correct_resp = true;
+                return '<h1>Correct</h1><br>'}},
+        prompt: function(){
+            if (correct_resp === false){return '<h2>click the button below to re-watch the clips and try again</h2>'}
+            else{return '<h2>click the button below to continue</h2>'}},
+        choices: ['continue'],
+        on_finish: function(){
+            if (correct_resp === false){window.location.reload();}
+            return},
+        post_trial_gap: 500
+
+    };
+
+    var agent_check = {
+        type: 'html-button-response',
+        stimulus: '<h1>Comprehension Check</h1><br>',
+        prompt: '<h2>Who was supposed to protect the tower?</h2>',
+        choices:  ['<span style="color: deeppink; font-weight: bold; font-size: 40px;">Pink</span>', '<span style="color: seagreen; font-weight: bold; font-size: 40px;">Green</span>'],
+        data: {'experiment_section': 'agent_check'},
+        on_finish: function () {
+            $.ajax({
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                url: "experiment",
+                traditional: true,
+                data: jsPsych.data.getLastTrialData().json(),
+                dataType: "json"
+            });
+            console.log(jsPsych.data.getLastTrialData().json())
+        }
+    };
+
+    var agent_feedback = {
+        type: 'html-button-response',
+        stimulus: function(){
+            if (norm === 'rational' && jsPsych.data.getLastTrialData().values()[0]['response'] === 0){
+                correct_resp = false;
+                return '<h1>Incorrect</h2><br>'}
+            else{
+                correct_resp = true;
+                return '<h1>Correct</h1><br>'}},
+        prompt: function(){
+            if (correct_resp === false){return '<h2>click the button below to re-watch the clips and try again</h2>'}
+            else{return '<h2>click the button below to continue</h2>'}},
+        choices: ['continue'],
+        on_finish: function(){
+            if (correct_resp === false){window.location.reload();}
+            return},
+        post_trial_gap: 500
+
+    }
+
+    var feedback = {
+        type: 'survey-text',
+        questions: [{prompt: '<p style="font-size:xx-large;">How did you make your judgement about the videos? What factors did you consider?</p>'},
+            {prompt: '<p style="font-size:xx-large;">Please share your thoughts/feedback on this task. Did you experience any technical difficulties? Did you find any aspect of this task strange or confusing? Please explain.</p>'}],
+        preamble: '<p style="font-size:xx-large;"> You have nearly finished this task, please share your experience below. </p>',
+        data: {'experiment_section': 'feedback'},
+        on_finish:  function () {
+            $.ajax({
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                url: "experiment",
+                traditional: true,
+                data: jsPsych.data.getLastTrialData().json(),
+                dataType: "json"
+            });
+            console.log(jsPsych.data.getLastTrialData().json())
+        }
+    }
+
+    var debrief = {
+            type: 'html-button-response',
+            stimulus: "<p style='font-size:xx-large;'><strong>Study Debriefing </strong></p><p>Judgement and decision making are important aspects of public and private life. Using tasks like the one you just completed, we are examining the factors that go into making decisions.<p/><p><stong>How is this being tested?</strong><p>We have asked you to respond to stories or videos that differ on several important factors. By isolating different variables that are involved in thought, we can better understand how we arrive at complex decision-making. For example, some actions are seen as more worthy of blame if they are performed intentionally. " +
+                "Harming someone on purpose is generally worse than harming someone by accident, or even harming someone in a way that is foreseen but not intended.</p><p><strong>Main questions and hypotheses:</strong></p>" +
+                "<p>A fundamental goal of our research is to understand the cognitive and emotional factors that influence judgment and decision-making. We are studying these factors by presenting people with hypothetical questions that vary in specific ways and seeing which factors make a difference. Some people filled out the same task that you just filled out. Others got slightly different tasks.</p><p><strong>Why is this important to study?</stong></p><p>By comparing answers on these important factors, we learn about what factors affect judgment. This has crucial implications for many public domains, including the legal system.</p>" +
+                "<p><strong>How to learn more:</strong></p><p>If you are interested in learning more, you may want to consult the following articles:Phillips, J., & Cushman, F. (2017). Morality constrains the default representation of what is possible.Proceedings of the National Academy of Sciences of the United States of America,114(18), 4649–4654. https://doi.org/10.1073/pnas.1619717114Phillips, J., Morris, A., & Cushman, F. (2019). How we know what not to think.Trends in Cognitive Sciences, 23(12), 1026–1040.https://doi.org/10.1016/j.tics.2019.09.007Phillips, J., Buckwalter, W., Cushman, F., Friedman, O., Martin, A., Turri, J., Santos, L., & Knobe, J. (2020). Knowledge before Belief.Behavioral and Brain Sciences,1-37. doi:10.1017/S0140525X20000618 </p><p><strong>How to contact the researcher:</strong></p><p>If you have questions or concerns about your participation or payment, or want to request a summary of research findings, please contact the Primary Investigator: Dr. Jonathan Phillips, at Jonathan.S.Phillips@dartmouth.edu.</p><p><strong> Whom to contact about your rights in this research:<strong/></p><p> If you have questions, concerns, complaints, or suggestions about the present research, you may call the Office of the Committee for the Protection of Human Subjects at Dartmouth College (603) 646-6482 during normal business hours.</p><br><br>" +
+                "<p style='font-size: 2em;'> Thank you for your participation!   Your Completion Code is: xxxx</p><p>Press the finish button to leave the experiment</p>",
+            choices: ['Finish'],
+            data: {'experiment_section': 'debreif'},
+            on_finish: function () {
+                $.ajax({
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                url: "experiment",
+                traditional: true,
+                data: jsPsych.data.getLastTrialData().json(),
+                dataType: "json"
+                });
+                window.location = "https://app.prolific.co/submissions/complete?cc=XXX"
+            }
+        }
+
+    jsPsych.data.addProperties({
+        jspsychID: '{{ jsID }}',
+        prolificID: '{{ proID }}',
+        });
+
+    var thanks = {
+        type: 'html-button-response',
+        stimulus: "<br><br>You have finished this experiment!<br>",
+        choices: ['continue'],
+        on_finish: function (){
+                var trial_dat = jsPsych.data.getLastTrialData().json()
+                if (JSON.parse(trial_dat)['trial_type'] === 'video_slider_response'){
+                     $.ajax({
+                         type: "POST",
+                         contentType: "application/json;charset=utf-8",
+                         url:"/",
+                         traditional: true,
+                         data: JSON.stringify({"trial":trial_dat}),
+                         dataType: "json"});
+                }
+            }
+        }
+
+    if (cond==='inanimate'){
+        // Inanimate condition
+        timeline.push(preload, vid1_phys, vid2_test, anim_check, anim_feedback, tower_check, tower_feedback, feedback, debrief);
+    } else {
+        // Animate condition
+        timeline.push( preload, vid1_phys, vid2_test, anim_check, anim_feedback, tower_check, tower_feedback, agent_check, agent_feedback, feedback, debrief);
+    }
+
+
+    jsPsych.init({
+        timeline:timeline,
+        show_progress_bar: true,
+        override_safe_mode: true,
+        })
+
+
+</script>
+</html>

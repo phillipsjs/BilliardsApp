@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tower</title>
+        <link rel="icon" href="static/favicon.ico" type="image/x-icon" />
+    	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="../static/jspsych-6.3.1/jspsych.js"></script>
+        <script src="../static/jspsych-6.3.1/plugins/jspsych-html-button-response.js"></script>
+        <script src="../static/jspsych-6.3.1/plugins/jspsych-survey-text.js"></script>
+        <script src="../static/jspsych-6.3.1/plugins/jspsych-html-keyboard-response.js"></script>
+        <script src="../static/jspsych-6.3.1/plugins/jspsych-image-keyboard-response.js"></script>
+        <script src="../static/jspsych-6.3.1/plugins/jspsych-video-slider-response.js"></script>
+        <script src="../static/jspsych-6.3.1/plugins/jspsych-video-button-response.js"></script>
+        <script src="../static/jspsych-6.3.1/plugins/jspsych-survey-text.js"></script>
+        <script src="../static/jspsych-6.3.1/plugins/jspsych-preload.js"></script>
+        <link href="../static/jspsych-6.3.1/fonts/">
+        <link href="../static/jspsych-6.3.1/css/jspsych.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+</body>
+<script>
+
+
+
+    var consent = {
+        type: 'html-button-response',
+        stimulus: "<p style='font-size:2em;'>CONSENT: Please consider this information carefully before deciding whether to participate in this research.</p><br><br><p style='font-size:1.5em;'>The purpose of this research is to examine which factors influence judgment and decision-making. You will be asked to make judgements about scenarios. We are simply interested in your judgement. The study will take less than 1 hour to complete, and you will receive less than $20. Your compensation and time commitment are specified in the study description. There are no anticipated risks associated with participating in this study. The effects of participating should be comparable to those you would ordinarily experience from viewing a computer monitor and using a mouse or keyboard for a similar amount of time. At the end of the study, we will provide an explanation of the questions that motivate this line of research and will describe the potential implications.</p><br><p>Your participation in this study is completely voluntary and you may refuse to participate or you may choose to withdraw at any time without penalty or loss of benefits to you which are otherwise entitled. Your participation in this study will remain confidential. No personally identifiable information will be associated with your data. Also, all analyses of the data will be averaged across all the participants, so your individual responses will never be specifically analyzed.If you have questions or concerns about your participation or payment, or want to request a summary of research findings, please contact Dr. Jonathan Phillips at Jonathan.S.Phillips@dartmouth.edu. Please save a copy of this form for your records. \n Agreement: \n The nature and purpose of this research have been sufficiently explained and I agree to participate in this study. I understand that I am free to withdraw at any time without incurring any penalty. Please consent by clicking the button below to continue. Otherwise, please exit the study at any time.</p>",
+        choices: ['continue'],
+        prompt: 'I consent',
+        data: {'experiment_section': 'consent'},
+        on_finish: function () {
+            $.ajax({
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                url: "consent",
+                traditional: true,
+                data: jsPsych.data.getLastTrialData().json(),
+                dataType: "json"
+            });
+        }
+    }
+
+
+    var instructions = {
+        type: 'html-button-response',
+        stimulus: "<span style='font-size: xx-large;'>Instructions</span><br><span style='font-size: x-large;'>" +
+            "<p>In this task, you will observe two short video clips.<br><br>Each clip will play in a loop continuously.<br> You will be asked to make judgements" +
+            " about the events in the clips.</p><p> Make your judgement based on the videos displayed by using a slider bar to " +
+            "indicate your agreement with the statements on the screen.</p></span>" +
+            "<div class='row' style='display: inline-flex;'>",
+            //"<div><img src='static/img/exampletrial.png' style='width:-webkit-fill-available;border-style: double;'><p class='small'><strong>Example</strong></p></div>" +
+            //"</div><div><br><br><p style='font-size: x-large;'>Press any key to begin.</p></div>" + '',
+        choices: ['continue'],
+        post_trial_gap: 1000,
+        on_finish: function(){
+            window.location = "experiment"
+        }
+    }
+
+
+    jsPsych.data.addProperties({
+        jspsychID: jsPsych.randomization.randomID(15),
+        prolificID: jsPsych.randomization.randomID(15)//jsPsych.data.getURLVariable('PROLIFIC_PID') //function(){if (window.location.href.indexOf("PROLIFIC_PID") > -1) {
+            //jsPsych.data.getURLVariable('PROLIFIC_PID')} else {return 'not_prolific_xx'}},
+        });
+
+
+    jsPsych.init({
+        timeline:[consent, instructions],
+        show_progress_bar: false,
+        override_safe_mode: true,
+        })
+
+
+</script>
+</html>

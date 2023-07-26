@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <title>Tower</title>
+    <style> li{
+        background: #0d0d0d;
+    }
+    </style>
+</head>
+<body>
+<div class="row justify-content-lg-center">
+    <div class="col-lg-6">
+        <h1>Choose your own adventure!</h1>
+    </div>
+</div>
+<br><br>
+<div class="row justify-content-lg-center">
+    <div class="col-lg-4 justify-content-md-center">
+        <h2> Animate Condition</h2>
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn-btn-primary" id="anim_ration"> Rational Norm Violation </button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn-btn-primary" id="anim_moral"> Moral Norm Violation </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 justify-content-md-center">
+        <h2> Inanimate Condition</h2>
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn-btn-primary" id="phys_ration">Rational Norm Violation</button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn-btn-primary" id="phys_moral">Moral Norm Violation</button>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<script>
+    document.getElementById("anim_ration").addEventListener('click', function(){
+        localStorage.setItem('adventure', '../static/stimuli/part1_anim.mp4');
+        localStorage.setItem('norm', '../static/stimuli/test_stim2.mp4');
+
+        window.location.href = 'consent';
+    })
+    document.getElementById("anim_moral").addEventListener('click', function(){
+        localStorage.setItem('adventure', '../static/stimuli/part1_anim.mp4');
+        localStorage.setItem('norm', '../static/stimuli/test_stim1.mp4');
+
+        window.location.href = 'consent';
+    })
+    document.getElementById("phys_ration").addEventListener('click', function(){
+       localStorage.setItem('adventure', '../static/stimuli/part1_phys.mp4');
+       localStorage.setItem('norm', '../static/stimuli/test_stim2.mp4');
+
+       window.location.href = 'consent';
+    })
+    document.getElementById("phys_moral").addEventListener('click', function(){
+       localStorage.setItem('adventure', '../static/stimuli/part1_phys.mp4');
+       localStorage.setItem('norm', '../static/stimuli/test_stim1.mp4');
+
+       window.location.href = 'consent';
+    })
+</script>
+</body>
+</html>

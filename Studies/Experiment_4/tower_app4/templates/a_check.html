@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "base.html" %}
+{% block js %}
+    <script>
+    var s_response = {}
+    var check1 = true
+    var check2 = true
+
+    function submit_tdat(){
+        check_answers()
+        s_response['prolific_id'] = new URLSearchParams(window.location.search).get('PROLIFIC_PID')
+        if (check1 && check2){
+            $.ajax({
+                type: "POST",
+                url:window.location.pathname,
+                data: JSON.stringify(Object.assign(s_response)),
+                traditional: true,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(){window.location.pathname = '/thankyou'; console.log('data sent from client')}
+        })
+        }
+    }
+
+    function check_answers(){
+        // check first one
+         if ('{{ s1 }}' === 'anim_v1.mp4' && s_response['check_1'] != "1"){
+             $('.prompt1').css('opacity', .4);
+             $('#rating_group_1').append('<div class="col"><h3>Incorrect</h3></div><div class="col"><button type="button" class="btn btn-primary" onclick=window.location.pathname="/stim1">Click Here to Re-start</button></div>')
+             check1 = false
+             document.removeEventListener("keydown", subjectResponse)
+             $('#cont_instruct p').remove()
+         } else {
+             if ('{{ s1 }}' === 'phys_v1.mp4' && s_response['check_1'] != "2"){
+                 $('.prompt1').css('opacity', .4);
+                 $('#rating_group_1').append('<div class="col"><h3>Incorrect</h3></div><div class="col"><button type="button" class="btn btn-primary" onclick=window.location.pathname="/stim1">Click Here to Re-start</button></div>')
+                 check1 = false
+                 document.removeEventListener("keydown", subjectResponse)
+                 $('#cont_instruct p').remove()
+             }
+         }
+
+         // check second one
+         if ('{{ s2 }}' === 'p_y_v2.mp4' && s_response['check_2'] != "1"){
+             $('.prompt2').css('opacity', .4);
+             $('#rating_group_2').append('<div class="col"><h3>Incorrect</h3></div><div class="col"><button type="button" class="btn btn-primary" onclick=window.location.pathname="/stim1">Click Here to Re-start</button></div>')
+             check2 = false
+             document.removeEventListener("keydown", subjectResponse)
+             $('#cont_instruct p').remove()
+
+         } else {
+             if ('{{ s2 }}' === 'y_p_v2.mp4' && s_response['check_2'] != "2"){
+                 $('.prompt2').css('opacity', .4);
+                 $('#rating_group_2').append('<div class="col"><h3>Incorrect</h3></div><div class="col"><button type="button" class="btn btn-primary" onclick=window.location.pathname="/stim1">Click Here to Re-start</button></div>')
+                 check2 = false
+                 document.removeEventListener("keydown", subjectResponse)
+                 $('#cont_instruct p').remove()
+             }
+         }
+    }
+
+    function get_answers() {
+        $('.btn-group').each(function () {
+            vname = $(this).attr('id')
+            s_response[vname] = Number($(this).find('input:radio:checked').val()) || 0
+        })
+    }
+
+    function subjectResponse(){
+        get_answers();
+        // make sure each question is answered
+        if (Object.values(s_response).includes(0)){
+            // find key in s_response where value is null
+            var notAnswered = Object.keys(s_response).find(key => s_response[key] === 0)
+            // toggle the class with animation
+            $('#'+notAnswered).toggleClass("animated tada")
+            setTimeout(function(){$('#'+notAnswered).toggleClass("animated tada")}, 800);
+        }else{
+            // submit s_response
+            submit_tdat()
+            console.log('answers posted')
+        }
+    }
+
+    </script>
+{% endblock %}
+
+{% block stage %}
+    <div class="row justify-content-center align-self-center text-center" style="height: 8vh;"><h3>Thank you for your responses. <br>Please answer the following questions:</h3></div>
+    <div class="row justify-content-center align-self-center">
+        <div class="col-lg-12">
+            <div class="row justify-content-center align-self-center" id="rating_group_1" style="align-items: center;">
+                <div class="col prompt1"><p class="text-center" style="font-size: calc(1rem + 1vw); font-style:italic;">One of the objects was animate.</p></div>
+                <div class="col prompt1">
+                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group" id="check_1" style="font-size:calc(.5rem + .5vw);" >
+                        <input type="radio" class="btn-check" name="btnradio_1" id="btnradio1_1" value="1" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="btnradio1_1">True</label>
+
+                        <input type="radio" class="btn-check" name="btnradio_1" id="btnradio2_1" value="2" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="btnradio2_1">False</label>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div class="row justify-content-center align-self-center" id="rating_group_2" style="align-items: center;">
+                <div class="col prompt1"><p class="text-center" style="font-size: calc(1rem + 1vw); font-style:italic;">Which ball first collided with the tower?</p></div>
+                <div class="col prompt1">
+                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group" id="check_2" style="font-size:calc(.5rem + .5vw);" >
+                        <input type="radio" class="btn-check" name="btnradio_2" id="btnradio1_2" value="1" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="btnradio1_2">Pink</label>
+
+                        <input type="radio" class="btn-check" name="btnradio_2" id="btnradio2_2" value="2" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="btnradio2_2">Yellow</label>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+
+            <div class="row justify-content-center text-center">
+                <div class="col-sm-4 text-center">
+                    <a href="#" type="button" id="cont_butt" class="btn btn-primary btn-lg" style="font-size: large;" onclick="subjectResponse()">Continue</a>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+{% endblock %}
+</html>

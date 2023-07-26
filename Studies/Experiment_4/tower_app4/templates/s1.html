@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "base.html" %}
+{% block js %}
+    <script>
+    var response = {
+    }
+    var s_dat = {
+        prolific_id: new URLSearchParams(window.location.search).get('PROLIFIC_PID'),
+    }
+
+
+    setTimeout(function(){
+        if (window.location.pathname === "/stim1"){
+            $('#cont_butt').removeClass("disabled")
+        } else {
+            $('#q_1_row').css('opacity', 1);
+            s_dat['q_1_onset'] = Date.now()
+            // note that reaction time is only saved for the LAST slider movement.
+        }
+    }, 10100)
+
+    function submitData(){
+         if (window.location.pathname === "/stim1"){
+             window.location.pathname = "/stim2"
+         } else {
+
+             $.ajax({
+                 type: "POST",
+                 url:window.location.pathname,
+                 data: JSON.stringify(Object.assign(s_dat, response)),
+                 traditional: true,
+                 contentType: "application/json; charset=utf-8",
+                 dataType: "json",
+                 success: function(){window.location.pathname = '/a_check'; console.log('data sent from client')}
+        })
+         }
+    }
+
+
+    </script>
+{% endblock %}
+
+{% block stage %}
+    <div class="row justify-content-center align-self-center">
+        <div class="col">
+            <p class="text-center" style="font-size: calc(1rem + 1vw);">{{ prompt|safe }}</p>
+        </div>
+    </div>
+
+    <div id="vid_row" class="row justify-content-center align-self-baseline" style="height: 50vh;">
+        <video  width="800" height="450" autoplay loop muted>
+          <source src="{{ stim }}" type="video/mp4">
+          <source src="movie.ogg" type="video/ogg">
+          Your browser does not support the video tag.
+        </video>
+    </div>
+    <br>
+    <div class="row justify-content-center align-self-center">
+        <br>
+    <hr/>
+        {% for rate in ratings %}
+
+        <div class="row justify-content-center text-center">
+            <div class="row justify-content-center align-items-center text-center" id="q_{{ loop.index }}_row" style="opacity: 0;">
+                <div class="col-lg-2"><p>Totally<br>Disagree</p></div>
+                <div class="col-lg-6 align-self-start">
+                    <div class="row justify-content-center text-center">
+                        <p style="font-size: calc(.5rem + .7vw);">{{ rate|safe }}</p>
+                    </div>
+                    <div class="row justify-content-center text-center">
+                        <input type="range" value="50" min=0 max=100 id="Q_{{ loop.index }}">
+                    </div>
+                </div>
+                <div class="col-lg-2"><p>Totally<br>Agree</p></div>
+            </div>
+        </div>
+        <hr/>
+        <script>
+        var $rangeslider = $('#Q_{{ loop.index }}')
+        response.q_{{ loop.index }} = []
+        $rangeslider.rangeslider({
+            polyfill: false,
+            onInit: function () {},
+            onSlideEnd: function () {
+                response.q_{{ loop.index }}.push(parseInt(this.value));
+                s_dat['q_{{ loop.index }}_rt'] = Date.now()
+                if ({{ loop.index }} != {{ loop.length }}){
+                    if (s_dat['q_{{ loop.index + 1 }}_onset'] === undefined){
+                        s_dat['q_{{ loop.index + 1 }}_onset'] = Date.now()
+                    }
+                    $('#q_{{ loop.index + 1 }}_row').css('opacity', 1)
+                }
+
+                if (Object.values(response).every(a => a.length >= 1)){$('#cont_butt').removeClass("disabled")}
+            }
+        })
+        </script>
+        {% endfor %}
+
+        <div class="row justify-content-center text-center">
+            <div class="col-sm-4 text-center">
+                <a href="#" type="button" id="cont_butt" class="btn btn-primary btn-lg disabled" style="font-size: large;" onclick="submitData()">Continue</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+</html>

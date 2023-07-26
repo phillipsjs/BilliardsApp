@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+    <head>
+        <title>Pool Shark</title>
+        <link rel="icon" href="/static/favicon.ico" type="image/x-icon" />
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+        <script src="/static/jspsych-6.3.1/jspsych.js"></script>
+        <script src="/static/jspsych-6.3.1/plugins/jspsych-html-button-response.js"></script>
+        <script src="/static/jspsych-6.3.1/plugins/jspsych-survey-text.js"></script>
+        <script src="/static/jspsych-6.3.1/plugins/jspsych-html-keyboard-response.js"></script>
+        <script src="/static/jspsych-6.3.1/plugins/jspsych-image-keyboard-response.js"></script>
+        <script src="/static/jspsych-6.3.1/plugins/jspsych-video-slider-response.js"></script>
+        <script src="/static/jspsych-6.3.1/plugins/jspsych-video-slider-response_CF.js"></script>
+        <script src="/static/jspsych-6.3.1/plugins/jspsych-preload.js"></script>
+        <script src="/static/stimuli_order.js" id="Cause_Stim" type="text/javascript"></script>
+        <script src="/static/stimuli_order_CF.js" id="CF_Stim" type="text/javascript"></script>
+        <link href="/static/jspsych-6.3.1/fonts/">
+        <link href="/static/jspsych-6.3.1/css/jspsych.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+    </body>
+
+    <script>
+        var timeline = [];
+
+        var preload = {
+            type: 'preload',
+            auto_preload: true,
+            message: "<p style='font-size: 3em;'>Loading experiment stimuli, this may take a few moments....</p><p style='font-size: 2em;'>Thank you for your patience.</p>",
+            video: ['static/videos/14_p_out_out.mp4', 'static/videos/15_a_out_out.mp4', 'static/videos/11_p_in_in.mp4', 'static/videos/22_a_out_in.mp4', 'static/videos/05_p_in_out.mp4', 'static/videos/10_a_in_in.mp4', 'static/videos/02_p_in_out.mp4', 'static/videos/19_p_out_in.mp4', 'static/videos/09_a_in_in.mp4', 'static/videos/17_p_out_out.mp4', 'static/videos/08_p_in_in.mp4', 'static/videos/16_a_out_out.mp4', 'static/videos/03_p_in_out.mp4', 'static/videos/04_p_in_out.mp4', 'static/videos/13_p_out_out.mp4', 'static/videos/23_a_out_in.mp4', 'static/videos/24_a_out_in.mp4', 'static/videos/22_p_out_in.mp4', 'static/videos/18_a_out_out.mp4', 'static/videos/02_a_in_out.mp4', 'static/videos/05_a_in_out.mp4', 'static/videos/04_a_in_out.mp4', 'static/videos/03_a_in_out.mp4', 'static/videos/24_p_out_in.mp4', 'static/videos/07_p_in_in.mp4', 'static/videos/23_p_out_in.mp4', 'static/videos/12_p_in_in.mp4', 'static/videos/19_a_out_in.mp4', 'static/videos/01_a_in_out.mp4', 'static/videos/06_a_in_out.mp4', 'static/videos/21_p_out_in.mp4', 'static/videos/09_p_in_in.mp4', 'static/videos/08_a_in_in.mp4', 'static/videos/20_p_out_in.mp4', 'static/videos/11_a_in_in.mp4', 'static/videos/18_p_out_out.mp4', 'static/videos/10_p_in_in.mp4', 'static/videos/07_a_in_in.mp4', 'static/videos/13_a_out_out.mp4', 'static/videos/06_p_in_out.mp4', 'static/videos/01_p_in_out.mp4', 'static/videos/12_a_in_in.mp4', 'static/videos/17_a_out_out.mp4', 'static/videos/21_a_out_in.mp4', 'static/videos/16_p_out_out.mp4', 'static/videos/14_a_out_out.mp4', 'static/videos/15_p_out_out.mp4', 'static/videos/20_a_out_in.mp4']}
+
+        var browser_check = {
+            type: 'html-keyboard-response',
+            stimulus: "<p style='font-size: xxx-large;'>IMPORTANT</p><p style='font-size: xx-large;'> This task cannot be " +
+                "completed in some web browsers (eg. Safari). <p style='font-size: xx-large;'> If content does not display, please complete the task using " +
+                "the <strong>Chrome</strong> web browser.</p><p>Press any key to continue.</p>"
+        }
+
+        var welcome = {
+            type: 'html-keyboard-response',
+            stimulus: "<p style='font-size: x-large;'>Welcome to the experiment. Press any key to begin.</p>"
+        }
+
+        var consent = {
+            type: 'html-button-response',
+            stimulus: "<p style='font-size:2em;'>Please consider this information carefully before deciding whether to participate in this research.</p><br><br><p style='font-size:1.5em;'>The purpose of this research is to examine which factors influence judgment and decision-making. You will be asked to make judgements about scenarios.We are simply interested in your judgement. The study will take less than 1 hour to complete, and you will receive less than $20. Your compensation and time commitment are specified in the study description. There are no anticipated risks associated with participating in this study. The effects of participating should be comparable to those you would ordinarily experience from viewing a computer monitor and using a mouse or keyboard for a similar amount of time. At the end of the study, we will provide an explanation of the questions that motivate this line of research and will describe the potential implications.</p>" +
+                "<br><p>Your participation in this study is completely voluntary and you may refuse to participate or you may choose to withdraw at any time without penalty or loss of benefits to you which are otherwise entitled. Your participation in this study will remain confidential. No personally identifiable information will be associated with your data. Also, all analyses of the data will be averaged across all the participants, so your individual responses will never be specifically analyzed.If you have questions or concerns about your participation or payment, or want to request a summary of research findings, please contact Dr. Jonathan Phillips at Jonathan.S.Phillips@dartmouth.edu. Please save a copy of this form for your records. \n Agreement: \n The nature and purpose of this research have been sufficiently explained and I agree to participate in this study. I understand that I am free to withdraw at any time without incurring any penalty." +
+                " Please consent by clicking the button below to continue. Otherwise, please exit the study at any time.</p>",
+            choices: ['continue'],
+            prompt: 'I consent'
+        }
+
+        var prolificID = {
+            type: 'survey-text',
+            questions: [{prompt: " Please enter your unique Prolific ID ", name: 'prolificID'}],
+            on_finish: function (){
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json;charset=utf-8",
+                    url:"/",
+                    traditional: true,
+                    data: jsPsych.data.getLastTrialData().json(),
+                    dataType: "json"});
+
+            }
+
+        }
+
+        var thanks = {
+            type: 'html-keyboard-response',
+            stimulus: "<br><br>You have finished this experiment!<br>Press any key. ",
+            on_finish: function (){
+                var trial_dat = jsPsych.data.getLastTrialData().json()
+                if (JSON.parse(trial_dat)['trial_type'] === 'video_slider_response'){
+                     $.ajax({
+                         type: "POST",
+                         contentType: "application/json;charset=utf-8",
+                         url:"/",
+                         traditional: true,
+                         data: JSON.stringify({"trial":trial_dat}),
+                         dataType: "json"});
+                }
+            }
+        }
+
+        var debrief = {
+            type: 'html-button-response',
+            stimulus: "<p><stong>Study Debriefing </strong></p><p>Judgement and decision making are important aspects of public and private life. Using tasks like the one you just completed, we are examining the factors that go into making decisions.<p/><p><stong>How is this being tested?</strong><p>We have asked you to respond to stories or videos that differ on several important factors. By isolating different variables that are involved in thought, we can better understand how we arrive at complex decision-making. For example, some actions are seen as more worthy of blame if they are performed intentionally. " +
+                "Harming someone on purpose is generally worse than harming someone by accident, or even harming someone in a way that is foreseen but not intended.</p><p><strong>Main questions and hypotheses:</strong></p>" +
+                "<p>A fundamental goal of our research is to understand the cognitive and emotional factors that influence judgment and decision-making. We are studying these factors by presenting people with hypothetical questions that vary in specific ways and seeing which factors make a difference. Some people filled out the same task that you just filled out. Others got slightly different tasks.</p><p><strong>Why is this important to study?</stong></p><p>By comparing answers on these important factors, we learn about what factors affect judgment. This has crucial implications for many public domains, including the legal system.</p>" +
+                "<p><strong>How to learn more:</strong></p><p>If you are interested in learning more, you may want to consult the following articles:Phillips, J., & Cushman, F. (2017). Morality constrains the default representation of what is possible.Proceedings of the National Academy of Sciences of the United States of America,114(18), 4649–4654. https://doi.org/10.1073/pnas.1619717114Phillips, J., Morris, A., & Cushman, F. (2019). How we know what not to think.Trends in Cognitive Sciences, 23(12), 1026–1040.https://doi.org/10.1016/j.tics.2019.09.007Phillips, J., Buckwalter, W., Cushman, F., Friedman, O., Martin, A., Turri, J., Santos, L., & Knobe, J. (2020). Knowledge before Belief.Behavioral and Brain Sciences,1-37. doi:10.1017/S0140525X20000618 </p><p><strong>How to contact the researcher:</strong></p><p>If you have questions or concerns about your participation or payment, or want to request a summary of research findings, please contact the Primary Investigator: Dr. Jonathan Phillips, at Jonathan.S.Phillips@dartmouth.edu.</p><p><strong> Whom to contact about your rights in this research:<strong/></p><p> If you have questions, concerns, complaints, or suggestions about the present research, you may call the Office of the Committee for the Protection of Human Subjects at Dartmouth College (603) 646-6482 during normal business hours.</p><br><br>" +
+                "<p style='font-size: 2em;'> Thank you for your participation!   Your Completion Studies is: xxxx</p><p>Press the finish button to leave the experiment</p>",
+            choices: ['Finish'],
+            on_finish: function () {
+                window.location = "https://app.prolific.co/submissions/complete?cc=XXX"
+
+            }
+        }
+
+        var instructions = {
+            type: 'html-keyboard-response',
+            stimulus: '<span style="font-size: x-large;">' +
+                "<p>In this portion of the experiment, You'll make judgements about a series of billiard ball events or possible " +
+                "alternative events.</p><p> Make your judgement based on the videos displayed by using a slider bar to " +
+                "indicate your agreement with the statements on the screen.</p></span>" +
+                "<div class='row' style='display: inline-flex;'>" +
+                "<div><img src='static/img/ballAimage.png' style='width:50%;'><p class='small'><strong>Ball A</strong></p></div>" +
+                "<div><img src='static/img/exampletrial.png' style='width:-webkit-fill-available;border-style: double;'><p class='small'><strong>Example</strong></p></div>" +
+                "<div><img src='static/img/ballBimage.png' style='width:50%;'><p class='small'><strong>Ball B</strong></p></div>" +
+                "</div><div><br><br><p style='font-size: x-large;'>Press any key to begin.</p></div>" +'',
+            post_trial_gap: 1000,
+            on_finish: function(){$.ajax({
+                         type: "POST",
+                         contentType: "application/json;charset=utf-8",
+                         url:"/",
+                         traditional: true,
+                         data: jsPsych.data.getLastTrialData().json(),
+                         dataType: "json"});
+                localStorage.setItem('sub_dat', jsPsych.data.getLastTrialData().json());
+
+            }
+
+        };
+
+        var cause_trial  = {
+            type: 'video-slider-response',
+            stimulus: jsPsych.timelineVariable('stimulus'),
+            labels: ['Disagree', 'Agree'],
+            min: 1,
+            max: 100,
+            step: 1,
+            slider_start: 50,
+            prompt: jsPsych.timelineVariable('prompts'),
+            require_movement: true,
+            autoplay: true,
+            rate: 1.5,
+            width: 780,
+            response_ends_trial: true,
+            controls: false,
+            on_finish: function () {
+                trial_dat = jsPsych.data.getLastTrialData().json()
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json;charset=utf-8",
+                    url: "/",
+                    traditional: true,
+                    data: trial_dat,
+                    dataType: "json"
+                });
+
+            }
+        }
+
+        var cf_trial  = {
+            type: 'video-slider-response_CF',
+            stimulus: jsPsych.timelineVariable('stimulus'),
+            labels: ['Disagree', 'Agree'],
+            min: 1,
+            max: 100,
+            step: 1,
+            slider_start: 50,
+            prompt: jsPsych.timelineVariable('prompts'),
+            require_movement: true,
+            autoplay: true,
+            rate: 1.5,
+            width: 780,
+            response_ends_trial: true,
+            controls: false,
+            on_finish: function () {
+                trial_dat = jsPsych.data.getLastTrialData().json()
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json;charset=utf-8",
+                    url: "/",
+                    traditional: true,
+                    data: trial_dat,
+                    dataType: "json"
+                });
+
+            }
+        }
+
+        var cause_stimuli = Cause_Stim
+        var cf_stimuli = CF_Stim
+
+        var fixation = {
+            type: 'html-keyboard-response',
+            stimulus: '<div style="font-size:60px;"> + </div>',
+            choices: jsPsych.NO_KEYS,
+            trial_duration: function(){return jsPsych.randomization.sampleWithoutReplacement([250, 500, 750, 1000, 1250,
+                1500, 1750, 2000], 1)[0]},
+            data:{task:'fixation'}
+            }
+
+
+        var causal_procedure = {
+            timeline: [cause_trial, fixation],
+            timeline_variables: cause_stimuli,
+            randomize_order: true
+        }
+        var cf_procedure = {
+            timeline: [cf_trial, fixation],
+            timeline_variables: cf_stimuli,
+            randomize_order: true
+        }
+
+        var cause_block = {timeline: [instructions, causal_procedure]};
+        var cf_block = {timeline: [instructions, cf_procedure]};
+
+
+        jsPsych.data.addProperties({
+            subjectID: jsPsych.randomization.randomID(15),
+            prolificID: jsPsych.data.getURLVariable('PROLIFIC_PID')
+        });
+
+        var both_blocks = jsPsych.randomization.shuffle([cause_block, cf_block])
+        timeline.push(browser_check, consent, prolificID, preload, welcome, cause_block, thanks, debrief)
+
+        function saveData(){
+            //var subject_dat = jsPsych.data.get().filter({'trial_type':'video-slider-response'}).json()
+            var subject_dat = jsPsych.data.get().json()
+            $.ajax({
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                url:"http://127.0.0.1:5000/",
+                traditional: true,
+                data: JSON.stringify(jsPsych.data.get().json),
+//              data: JSON.stringify(jsPsych.data.get().filter({'trial_type':'video-slider-response'}).json()),
+                dataType: "json"
+            });
+        }
+
+        jsPsych.init({
+            timeline:timeline,
+            show_progress_bar: true,
+            override_safe_mode: true
+        })
+
+    </script>
+
+
+</DOCTYPEhtml>
